@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Myline</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your Time line">
+  <meta name="author" content="Manuel Figueroa">
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <!-- navbar -->
+  <div class="navbar-wrapper">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- Responsive navbar -->
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+          </a>
+          <h1 class="brand"><a href="index.html">My Line</a></h1>
+          <!-- navigation -->
+          <nav class="pull-right nav-collapse collapse">
+          <ul id="menu-main" class="nav">
+            <li><a title="team" href="#about">About</a></li>
+            <li><a title="contributors" href="#contributors">Contributors</a></li>
+            <li><a title="line" href="#line">Line</a></li>
+            <li><a title="blog" href="#blog">Blog</a></li>
+            <li><a title="contact" href="#contact">Cuddles</a></li>
+          </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Header area -->
+  <div id="header-wrapper" class="header-slider">
+    <header class="clearfix">
+    <div class="logo">
+      <img src="/logo-myline.png" alt="" />
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <div id="main-flexslider" class="flexslider">
+            <ul class="slides">
+              <li>
+              <p class="home-slide-content">
+                <strong>creative</strong> and passion
+              </p>
+              </li>
+              <li>
+              <p class="home-slide-content">
+                While you were <strong>out</strong>
+              </p>
+              </li>
+              <li>
+              <p class="home-slide-content">
+                We love <strong>time travel</strong>
+              </p>
+              </li>
+            </ul>
+          </div>
+          <!-- end slider -->
+        </div>
+      </div>
+    </div>
+    </header>
+  </div>
+
+  <%= yield %>
+
+  <!-- end spacer section -->
+  <!-- section: contact -->
+  <section id="contact" class="section green">
+  <div class="container">
+    <h4>Get in Touch</h4>
+    <p>
+       Reque facer nostro et ius, cu persius mnesarchum disputando eam, clita prompta et mel vidisse phaedrum pri et. Facilisis posidonium ex his. Mutat iudico vis in, mea aeque tamquam scripserit an, mea eu ignota viderer probatus. Lorem legere consetetur ei eum. Sumo aeque assentior te eam, pri nominati posidonium consttuam
+    </p>
+    <div class="blankdivider30">
+    </div>
+    <div class="row">
+      <div class="span12">
+        <div class="cform" id="contact-form">
+          <div id="sendmessage">Your message has been sent. Thank you!</div>
+                  <div id="errormessage"></div>
+          <form action="" method="post" role="form" class="contactForm">
+            <div class="row">
+              <div class="span6">
+                <div class="field your-name form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                  <div class="validation"></div>
+                </div>
+                <div class="field your-email form-group">
+                  <input type="text" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                                  <div class="validation"></div>
+                </div>
+                <div class="field subject form-group">
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                                  <div class="validation"></div>
+                </div>
+              </div>
+              <div class="span6">
+                <div class="field message form-group">
+                  <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                                  <div class="validation"></div>
+                </div>
+                <input type="submit" value="Send message" class="btn btn-theme pull-left">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- ./span12 -->
+    </div>
+  </div>
+  </section>
+  <footer>
+  <div class="container">
+    <div class="row">
+      <div class="span6 offset3">
+        <ul class="social-networks">
+          <li><a href="#" target="_blank"><i class="icon-circled icon-bgdark icon-instagram icon-2x"></i></a></li>
+          <li><a href="#" target="_blank"><i class="icon-circled icon-bgdark icon-twitter icon-2x"></i></a></li>
+          <li><a href="#" target="_blank"><i class="icon-circled icon-bgdark icon-dribbble icon-2x"></i></a></li>
+          <li><a href="#" target="_blank"><i class="icon-circled icon-bgdark icon-pinterest icon-2x"></i></a></li>
+        </ul>
+        <p class="copyright">
+          &copy; Manuel Figueroa. All rights reserved.
+                  <div class="credits">
+                      <a href="https://github.com/mfigand" target="_blank">My Line App</a> by Manuel Figueroa
+                  </div>
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- ./container -->
+  </footer>
+  <a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+</body>
+</html>
