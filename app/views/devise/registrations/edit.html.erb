@@ -1,3 +1,7 @@
+<div class="error">
+  <%= flash_message %>
+</div>
+
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
@@ -31,8 +35,13 @@
     <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
 
+  <div class="field" id="avatar_field">
+    <%= f.label :avatar %><br />
+    <%= f.file_field :avatar %>
+  </div>
+
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "Update", :class => 'btn btn-theme pull-left' %>
   </div>
 <% end %>
 

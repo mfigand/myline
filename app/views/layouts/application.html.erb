@@ -18,15 +18,26 @@
           <!-- Responsive navbar -->
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
           </a>
-          <h1 class="brand"><a href="index.html">My Line</a></h1>
+          <h1 class="brand">
+            <% if user_signed_in? %>
+              <a href="/"><%= current_user.name %> Line</a>
+            <% else %>
+              <a href="/">My Line</a>
+            <% end %>
+          </h1>
           <!-- navigation -->
           <nav class="pull-right nav-collapse collapse">
           <ul id="menu-main" class="nav">
             <li><a title="team" href="#about">About</a></li>
-            <li><a title="contributors" href="#contributors">Contributors</a></li>
+            <li><a title="tellers" href="#tellers">Tellers</a></li>
             <li><a title="line" href="#line">Line</a></li>
             <li><a title="blog" href="#blog">Blog</a></li>
             <li><a title="contact" href="#contact">Cuddles</a></li>
+            <% if user_signed_in? %>
+              <li><%= link_to 'Sign out', destroy_user_session_path, method: 'DELETE', class: 'sign_out' %></li>
+            <% else %>
+              <li><a href= <%= new_user_session_path %> ><span>Login</span></a></li>
+            <% end %>
           </ul>
           </nav>
         </div>
@@ -46,7 +57,7 @@
             <ul class="slides">
               <li>
               <p class="home-slide-content">
-                <strong>creative</strong> and passion
+                The real <strong>time travel</strong>
               </p>
               </li>
               <li>
@@ -56,7 +67,7 @@
               </li>
               <li>
               <p class="home-slide-content">
-                We love <strong>time travel</strong>
+                Send <strong>messages</strong> through time
               </p>
               </li>
             </ul>
@@ -76,7 +87,7 @@
   <div class="container">
     <h4>Get in Touch</h4>
     <p>
-       Reque facer nostro et ius, cu persius mnesarchum disputando eam, clita prompta et mel vidisse phaedrum pri et. Facilisis posidonium ex his. Mutat iudico vis in, mea aeque tamquam scripserit an, mea eu ignota viderer probatus. Lorem legere consetetur ei eum. Sumo aeque assentior te eam, pri nominati posidonium consttuam
+       You are very important for us and we want to keep you happy, so feel free to send us any question or recomendation.
     </p>
     <div class="blankdivider30">
     </div>

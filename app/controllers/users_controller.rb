@@ -2,14 +2,27 @@ class UsersController < ApplicationController
 
   before_action :authenticate_user!, except: :update
 
-  def profile
-   @user = current_user
-   render 'users/profile'
+  def index
+    @allUser = User.all
+  end
+
+  def new
+    @user = User.new user_params
+  end
+
+  def create
+    @user = User.new user_params
+    if @user.save
+      flash[:notice] = "User created succesfully"
+      render 'show'
+    else
+      flash[:alert] = "ALERT User not created"
+      render 'new'
+    end
   end
 
   def show
-     @allRewards = Reward.all
-     @coupons = current_user.coupons
+     @user = User.find(params[:id])
   end
 
   def edit
@@ -30,12 +43,18 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
+    redirect_to root_path
+  end
+
+  def profile
+   @user = current_user
+   render 'users/profile'
   end
 
   private
 
  def user_params
-  params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
  end
 
 end

@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721202050) do
+ActiveRecord::Schema.define(version: 20170724145414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contexts", force: :cascade do |t|
+    t.text     "aboutDescription"
+    t.string   "aboutPicture"
+    t.string   "aboutVideo"
+    t.string   "coverPicture"
+    t.string   "parallaxPicture"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "user_id"
+  end
+
+  add_index "contexts", ["user_id"], name: "index_contexts_on_user_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -26,6 +39,25 @@ ActiveRecord::Schema.define(version: 20170721202050) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "stories", force: :cascade do |t|
+    t.string  "name"
+    t.date    "date"
+    t.string  "image"
+    t.integer "teller_id"
+    t.integer "user_id"
+  end
+
+  add_index "stories", ["user_id"], name: "index_stories_on_user_id", using: :btree
+
+  create_table "tellers", force: :cascade do |t|
+    t.string  "name"
+    t.string  "title"
+    t.string  "avatar"
+    t.integer "user_id"
+  end
+
+  add_index "tellers", ["user_id"], name: "index_tellers_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -41,6 +73,10 @@ ActiveRecord::Schema.define(version: 20170721202050) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "name"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -53,4 +89,7 @@ ActiveRecord::Schema.define(version: 20170721202050) do
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
+  add_foreign_key "contexts", "users"
+  add_foreign_key "stories", "users"
+  add_foreign_key "tellers", "users"
 end

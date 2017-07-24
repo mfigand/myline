@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aboutDescription: MyText
+  aboutPicture: MyString
+  aboutVideo: MyString
+  coverPicture: MyString
+  parallaxPicture: MyString
+
+two:
+  aboutDescription: MyText
+  aboutPicture: MyString
+  aboutVideo: MyString
+  coverPicture: MyString
+  parallaxPicture: MyString
