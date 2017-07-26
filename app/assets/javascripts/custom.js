@@ -112,6 +112,7 @@ jQuery(document).ready(function($) {
 	}
 	// filter items when filter link is clicked
 	$('#filters a').click(function(){
+		debugger
 		$('#filters a').removeClass('active');
 		$(this).addClass('active');
 		var selector = $(this).attr('data-filter');

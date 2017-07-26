@@ -33,61 +33,71 @@ stories = Story.create([
         name: 'Mi nacimiento',
         date: DateTime.now - 12.month,
         image: '/team/img-1.jpg',
-        teller_id: 2
-    },
-    {
-        name: 'Mi primer bibe',
-        date: DateTime.now - 10.month,
-        image: '/team/img-1.jpg',
-        teller_id: 2
-    },
-    {
-        name: 'Story 3',
-        date: DateTime.now - 7.month,
-        image: '/team/img-1.jpg',
-        teller_id: 2
-    },
-    {
-        name: 'Story 4',
-        date: DateTime.now - 4.month,
-        image: '/team/img-1.jpg',
-        teller_id: 2
-    },
-    {
-        name: 'Story 5',
-        date: DateTime.now - 2.month,
-        image: '/team/img-1.jpg',
-        teller_id: 2
-    },
-    {
-        name: 'Story 6',
-        date: DateTime.now - 1.month,
-        image: '/team/img-1.jpg',
-        teller_id: 2
-    },
-    {
-        name: 'Story 7',
-        date: DateTime.now,
-        image: '/team/img-1.jpg',
-        teller_id: 2
+        teller_id: 2,
+        user_id: 1
     },
     {
         name: 'Story 8',
         date: DateTime.now + 3.month,
         image: '/team/img-1.jpg',
-        teller_id: 2
+        teller_id: 2,
+        user_id: 1
     },
     {
         name: 'Story 9',
         date: DateTime.now + 5.month,
         image: '/team/img-1.jpg',
-        teller_id: 2
+        teller_id: 2,
+        user_id: 1
+    },
+    {
+        name: 'Mi primer bibe',
+        date: DateTime.now - 10.month,
+        image: '/team/img-1.jpg',
+        teller_id: 2,
+        user_id: 1
+    },
+    {
+        name: 'Story 3',
+        date: DateTime.now - 7.month,
+        image: '/team/img-1.jpg',
+        teller_id: 2,
+        user_id: 1
+    },
+    {
+        name: 'Story 4',
+        date: DateTime.now - 4.month,
+        image: '/team/img-1.jpg',
+        teller_id: 2,
+        user_id: 1
+    },
+    {
+        name: 'Story 5',
+        date: DateTime.now - 2.month,
+        image: '/team/img-1.jpg',
+        teller_id: 2,
+        user_id: 1
+    },
+    {
+        name: 'Story 6',
+        date: DateTime.now - 1.month,
+        image: '/team/img-1.jpg',
+        teller_id: 2,
+        user_id: 1
+    },
+    {
+        name: 'Story 7',
+        date: DateTime.now,
+        image: '/team/img-1.jpg',
+        teller_id: 2,
+        user_id: 1
     },
     {
         name: 'Story 10',
         date: DateTime.now + 10.month,
         image: '/team/img-1.jpg',
-        teller_id: 2
+        teller_id: 2,
+        user_id: 1
     }
     ])
 

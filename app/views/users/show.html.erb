@@ -76,77 +76,46 @@
         <li><a href="#" data-filter="*" class="active">
         <h5>All</h5>
         </a></li>
-        <li><a href="#" data-filter=".web">
-        <h5>Web</h5>
+        <li><a href="#" data-filter=".first">
+        <h5>First</h5>
         </a></li>
-        <li><a href="#" data-filter=".print">
-        <h5>Print</h5>
+        <li><a href="#" data-filter=".activities">
+        <h5>Activities</h5>
         </a></li>
-        <li><a href="#" data-filter=".design">
-        <h5>Design</h5>
+        <li><a href="#" data-filter=".customs">
+        <h5>Customs</h5>
         </a></li>
-        <li><a href="#" data-filter=".photography">
-        <h5>Photography</h5>
+        <li><a href="#" data-filter=".trips">
+        <h5>Trips</h5>
         </a></li>
       </ul>
     </div>
     <!-- END PORTFOLIO FILTERING -->
   </div>
   <div class="row">
-    <div class="span12">
-      <div id="portfolio-wrap">
-        <!-- portfolio item -->
+    <div class="span12">   
+      <div class="timeline-wrapper clearfix">
+          <div class="timeline-content-day">  
+              <div class="timeline-line"></div>
 
-          
-<div class="timeline-wrapper clearfix">
-    <div class="timeline-content-day">
-        <div class="timeline-line"></div>
-        <div class="timeline-content-item active" data-timeline="hour-8">
-            <span>8 AM</span>
-            <div class="timeline-content-item-reveal">
-                <a href="#">
-                    <img src="http://lorempixel.com/300/300/abstract">
-                    <span>Lorem Ipsum</span>
-                </a>
-            </div>
-        </div>
+              <% @user.stories.order(:date).each_with_index do | story, index| %>
 
-        <div class="timeline-content-item" data-timeline="hour-9">
-            <span>9 AM</span>
-            <div class="timeline-content-item-reveal">
-                <a href="#">
-                    <img src="http://lorempixel.com/300/300/city">
-                    <span>Lorem Ipsum</span>
-                </a>
-            </div>
-        </div>
+                <!-- portfolio item -->
+                <div class="timeline-content-item" data-timeline="hour-8">
+                    <span><%= story.date.strftime("%Y %b %d") %></span>
+                    <div class="timeline-content-item-reveal">
+                        <a href="/bg/bg-barriga.jpg"  >
+                            <img src="/bg/bg-barriga.jpg">
+                            <span><%= story.name %></span>
+                        </a>
+                    </div>
+                </div>
+                <!-- end portfolio item -->
 
-        <div class="timeline-content-item" data-timeline="hour-10">
-            <span>10 AM</span>
-            <div class="timeline-content-item-reveal">
-                <a href="#">
-                    <img src="http://lorempixel.com/300/300/people">
-                    <span>Lorem Ipsum</span>
-                </a>
-            </div>
-        </div>
+              <% end %>
 
-        <div class="timeline-content-item" data-timeline="hour-11">
-            <span>11 AM</span>
-            <div class="timeline-content-item-reveal">
-                <a href="#">
-                    <img src="http://lorempixel.com/300/300/transport">
-                    <span>Lorem Ipsum</span>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-        
-
-        <!-- end portfolio item -->
+          </div>
       </div>
-    </div>
   </div>
 </div>
 </section>
