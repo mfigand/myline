@@ -104,8 +104,8 @@
                 <div class="timeline-content-item" data-timeline="hour-8">
                     <span><%= story.date.strftime("%Y %b %d") %></span>
                     <div class="timeline-content-item-reveal">
-                        <a href="/bg/bg-barriga.jpg"  >
-                            <img src="/bg/bg-barriga.jpg">
+                        <a href=<%= story.image %> data-pretty="prettyPhoto[gallery1]" >
+                            <img src=<%= story.image %> >
                             <span><%= story.name %></span>
                         </a>
                     </div>
