@@ -33,6 +33,7 @@ stories = Story.create([
         name: 'Mi nacimiento',
         date: DateTime.now - 12.month,
         image: '/team/img-1.jpg',
+        tag: ['first'],
         teller_id: 2,
         user_id: 1
     },
@@ -40,6 +41,7 @@ stories = Story.create([
         name: 'Story 8',
         date: DateTime.now + 3.month,
         image: '/team/img-1.jpg',
+        tag: ['activity', 'custom'],
         teller_id: 2,
         user_id: 1
     },
@@ -47,6 +49,7 @@ stories = Story.create([
         name: 'Story 9',
         date: DateTime.now + 5.month,
         image: '/team/img-1.jpg',
+        tag: ['custom', 'trip'],
         teller_id: 2,
         user_id: 1
     },
@@ -54,6 +57,7 @@ stories = Story.create([
         name: 'Mi primer bibe',
         date: DateTime.now - 10.month,
         image: '/team/img-1.jpg',
+        tag: ['first', 'activity'],
         teller_id: 2,
         user_id: 1
     },
@@ -61,6 +65,7 @@ stories = Story.create([
         name: 'Story 3',
         date: DateTime.now - 7.month,
         image: '/team/img-1.jpg',
+        tag: ['trip', 'custom'],
         teller_id: 2,
         user_id: 1
     },
@@ -68,6 +73,7 @@ stories = Story.create([
         name: 'Story 4',
         date: DateTime.now - 4.month,
         image: '/team/img-1.jpg',
+        tag: ['activity'],
         teller_id: 2,
         user_id: 1
     },
@@ -75,6 +81,7 @@ stories = Story.create([
         name: 'Story 5',
         date: DateTime.now - 2.month,
         image: '/team/img-1.jpg',
+        tag: ['trip'],
         teller_id: 2,
         user_id: 1
     },
@@ -82,6 +89,7 @@ stories = Story.create([
         name: 'Story 6',
         date: DateTime.now - 1.month,
         image: '/team/img-1.jpg',
+        tag: ['activity','first'],
         teller_id: 2,
         user_id: 1
     },
@@ -89,6 +97,7 @@ stories = Story.create([
         name: 'Story 7',
         date: DateTime.now,
         image: '/team/img-1.jpg',
+        tag: ['activity'],
         teller_id: 2,
         user_id: 1
     },
@@ -96,6 +105,7 @@ stories = Story.create([
         name: 'Story 10',
         date: DateTime.now + 10.month,
         image: '/team/img-1.jpg',
+        tag: ['custom'],
         teller_id: 2,
         user_id: 1
     }

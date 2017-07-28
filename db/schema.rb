@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20170724145414) do
 
   create_table "stories", force: :cascade do |t|
     t.string  "name"
-    t.string  "tag"
+    t.json    "tag"
     t.date    "date"
     t.string  "image"
     t.integer "teller_id"
