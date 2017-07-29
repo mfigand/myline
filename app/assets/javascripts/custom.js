@@ -110,13 +110,25 @@ jQuery(document).ready(function($) {
 		$container.isotope('reLayout');
 	});
 	}
+	//Reorder items
+	function reorderItems(tag){
+		var allStories = $('.allStories');
+
+		$.each(allStories, function( index, story ) {
+		  JSON.parse(story.innerText); 
+		})
+
+	
+
+	}
+
 	// filter items when filter link is clicked
 	$('#filters a').click(function(){
-		debugger
 		$('#filters a').removeClass('active');
 		$(this).addClass('active');
 		var selector = $(this).attr('data-filter');
-		$container.isotope({ filter: selector });
+		//$container.isotope({ filter: selector });
+		reorderItems(selector);
 		return false;
 	});
 
