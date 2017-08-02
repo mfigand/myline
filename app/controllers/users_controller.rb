@@ -46,6 +46,12 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def allStories
+    @user = User.find(params[:user_id])
+    @allStories = User.first.stories
+    render json: @allStories 
+  end
+
   def profile
    @user = current_user
    render 'users/profile'

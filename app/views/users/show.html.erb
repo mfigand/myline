@@ -76,16 +76,16 @@
         <li><a href="#" data-filter="*" class="active">
         <h5>All</h5>
         </a></li>
-        <li><a href="#" data-filter=".first">
+        <li><a href="#" data-filter="first">
         <h5>First</h5>
         </a></li>
-        <li><a href="#" data-filter=".activities">
+        <li><a href="#" data-filter="activities">
         <h5>Activities</h5>
         </a></li>
-        <li><a href="#" data-filter=".customs">
+        <li><a href="#" data-filter="customs">
         <h5>Customs</h5>
         </a></li>
-        <li><a href="#" data-filter=".trips">
+        <li><a href="#" data-filter="trips">
         <h5>Trips</h5>
         </a></li>
       </ul>
@@ -97,13 +97,6 @@
       <div class="timeline-wrapper clearfix">
           <div class="timeline-content-day">  
               <div class="timeline-line"></div>
-
-
-              <% @user.stories.each_with_index do | story, index| %>
-
-                <div class="allStories" hidden><%= story.attributes.to_json %> </div>
-
-              <% end %>
 
               <% @user.stories.order("RANDOM()").limit(5).each_with_index do | story, index| %>
 

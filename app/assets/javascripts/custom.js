@@ -68,8 +68,9 @@ jQuery(document).ready(function($) {
         });
 
     }
-	
 	// add animation on hover
+	function addAnimationOnHover(){
+		debugger
 		$(".service-box").hover(
 			function () {
 			$(this).find('img').addClass("animated pulse");
@@ -80,7 +81,7 @@ jQuery(document).ready(function($) {
 			$(this).find('h2').removeClass("animated fadeInUp");
 			}
 		);
-		
+	}
 	
 	// cache container
 	var $container = $('#portfolio-wrap');
@@ -110,15 +111,35 @@ jQuery(document).ready(function($) {
 		$container.isotope('reLayout');
 	});
 	}
+
 	//Reorder items
-	function reorderItems(tag){
-		var allStories = $('.allStories');
+	function reorderItems(tagSelected){
+		var allStories = JSON.parse(localStorage.getItem('allStories'));
+		var oldStories = $('.timeline-content-item, .allStories');
+
+		oldStories.remove();
 
 		$.each(allStories, function( index, story ) {
-		  JSON.parse(story.innerText); 
-		})
 
-	
+		  $.each( story.tag, function( i, storyTag){
+
+		  	if (storyTag === tagSelected){
+		  		$('.timeline-content-day').append(
+		  			'<div class="timeline-content-item" data-timeline="hour-8">'+
+		  				'<span>'+ story.date +'</span>'+
+		  				'<div class="timeline-content-item-reveal">'+
+		  					'<a href='+ story.image +' data-pretty="prettyPhoto[gallery1]" >'+
+		  						'<img src='+ story.image +' >'+
+		  						'<span>'+ story.name +'</span>'+
+		  					'</a>'+
+		  				'</div>'+
+		  			'</div>'
+		  			)
+		  	}
+
+		  })
+
+		})
 
 	}
 
@@ -129,6 +150,7 @@ jQuery(document).ready(function($) {
 		var selector = $(this).attr('data-filter');
 		//$container.isotope({ filter: selector });
 		reorderItems(selector);
+		addAnimationOnHover();
 		return false;
 	});
 
@@ -146,6 +168,8 @@ jQuery(document).ready(function($) {
 		smootheHeight:true,						
 		useCSS: false
 	});
+
+	//addAnimationOnHover();
 });
 	
 	
