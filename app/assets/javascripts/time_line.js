@@ -1,9 +1,13 @@
 jQuery(document).ready(function($) {
 
-  $(".timeline-wrapper .timeline-content-item > span").on("mouseenter mouseleave", function(e){
-    $(".timeline-wrapper .timeline-content-item.active").removeClass("active");
-    $(this).parent().addClass("active");
-  });
+  function addMouseEvent(){
+
+    $(".timeline-wrapper .timeline-content-item > span").on("mouseenter mouseleave", function(e){
+      $(".timeline-wrapper .timeline-content-item.active").removeClass("active");
+      $(this).parent().addClass("active");
+    });
+    return false
+  }
 
   //Reorder items
     function reorderItems(tagSelected){
@@ -34,8 +38,7 @@ jQuery(document).ready(function($) {
 
       })
 
-    
-
+      addMouseEvent();
     }
 
     // filter items when filter link is clicked
@@ -47,5 +50,7 @@ jQuery(document).ready(function($) {
       reorderItems(selector);
       return false;
     });
+
+    addMouseEvent();
 
 });
