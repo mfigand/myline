@@ -1,5 +1,17 @@
 jQuery(document).ready(function($) {
 
+  $("#search_filter").live("keypress", function(e) {
+    if (e.keyCode == 13) {
+       var inserted_tag = $(this)[0].value;
+        search_filter(e,inserted_tag);
+        return false; // prevent the button click from happening
+    }
+  });
+
+  function search_filter(e,inserted_tag){
+    debugger
+  }
+
   function addMouseEvent(){
 
     $(".timeline-wrapper .timeline-content-item > span").on("mouseenter mouseleave", function(e){
