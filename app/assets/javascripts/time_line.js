@@ -27,7 +27,7 @@ jQuery(document).ready(function($) {
 
         $.each( story.tag, function( i, storyTag){
 
-          if (storyTag === tagSelected){
+          if (storyTag === tagSelected || tagSelected === "*"){
             $('.timeline-content-day').append(
               '<div class="timeline-content-item" data-timeline="hour-8">'+
                 '<span>'+ story.date +'</span>'+
