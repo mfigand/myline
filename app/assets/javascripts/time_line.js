@@ -3,17 +3,12 @@ jQuery(document).ready(function($) {
   $("#search_filter").live("keypress", function(e) {
     if (e.keyCode == 13) {
        var inserted_tag = $(this)[0].value;
-        search_filter(e,inserted_tag);
+        reorderItems(inserted_tag,e);
         return false; // prevent the button click from happening
     }
   });
 
-  function search_filter(e,inserted_tag){
-    debugger
-  }
-
   function addMouseEvent(){
-
     $(".timeline-wrapper .timeline-content-item > span").on("mouseenter mouseleave", function(e){
       $(".timeline-wrapper .timeline-content-item.active").removeClass("active");
       $(this).parent().addClass("active");
@@ -22,7 +17,7 @@ jQuery(document).ready(function($) {
   }
 
   //Reorder items
-    function reorderItems(tagSelected){
+    function reorderItems(tagSelected, event=null){
       var allStories = JSON.parse(localStorage.getItem('allStories'));
       var oldStories = $('.timeline-content-item, .allStories');
 
