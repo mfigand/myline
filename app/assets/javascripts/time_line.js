@@ -11,14 +11,15 @@ jQuery(document).ready(function($) {
   //Reorder items
   function reorderItems(tagSelected, event=null, changeTagFilter=false){
     
-    localStorage.setItem("tagSelected", tagSelected);
     var storiesToShow = []
     var nextCounter;
     var allStories = JSON.parse(localStorage.getItem('allStories'));
     var oldStories = $('.timeline-content-item, .allStories');
     var firstStory = false;
     var lastStory = false;
+    localStorage.setItem("tagSelected", tagSelected);
 
+    $('#notFoundMessage').hide();
     $('#next').remove();
     oldStories.remove();
     changeTagFilter === true ? nextCounter = storyGroup : nextCounter = JSON.parse(localStorage.getItem("next"));
@@ -41,19 +42,27 @@ jQuery(document).ready(function($) {
       })
     })
 
-    $.each(storiesToShow, function(index, filteredStory){
-      if(index >= (nextCounter-storyGroup) && index < nextCounter){
-        $('.timeline-content-day').append(filteredStory)
-        if(index === 0){
-          firstStory = true;
-        }
-        else if(index === storiesToShow.length-1){
-          lastStory = true;
-        }
-      }
-    })
-    
     firstStory === true ? $('#prev').hide() : $('#prev').show();
+
+    if (storiesToShow.length === 0) {
+      $('#notFoundMessage').show();
+      $('#prev').hide();
+    }else{
+      $.each(storiesToShow, function(index, filteredStory){
+        if(index >= (nextCounter-storyGroup) && index < nextCounter){
+          $('.timeline-content-day').append(filteredStory)
+          if(index === 0){
+            firstStory = true;
+          }
+          else if(index === storiesToShow.length-1){
+            lastStory = true;
+          }
+        }
+      });
+    }
+
+    
+    
 
     if (nextCounter < storiesToShow.length && lastStory === false) {
       $('.timeline-content-day').append('<button id="next" class="corousel-btn next" >Next</button>');
@@ -110,6 +119,7 @@ jQuery(document).ready(function($) {
   function addFilterEvent(){
     // filter items when filter link is clicked
     $('#filters a').unbind().on("click",function(e){
+      $('#search_filter').val('');
       $('#filters a').removeClass('active');
       $(this).addClass('active');
       var selector = $(this).attr('data-filter');

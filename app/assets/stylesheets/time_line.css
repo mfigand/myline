@@ -1,4 +1,11 @@
 
+.justify p:after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}
+
+
 #search_filter{
   width: 30%;
 }
