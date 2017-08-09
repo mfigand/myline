@@ -37,4 +37,4 @@ function getAllStories() {
         console.log('Ocurrió el siguiente error:' + errorThrown);
     }
   });
-  }
+}

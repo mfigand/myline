@@ -29,7 +29,8 @@
       <div class="span6">
         <div class="aligncenter">
           <% if current_user.context.aboutPicture %>
-            <img class="team-thumb img-circle" src=<%= current_user.context.aboutPicture %> alt="" />
+            <iframe width="420" height="315" src="https://www.youtube.com/embed/ubdWitOk6zQ" frameborder="0" allowfullscreen></iframe>
+            <!-- <img class="team-thumb img-circle" src=<%= current_user.context.aboutPicture %> alt="" /> -->
           <% else %>
             <img class="team-thumb img-circle" src='/icons/creativity.png' alt="" />
           <% end %>
