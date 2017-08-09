@@ -1,230 +1,244 @@
 <!-- spacer section -->
 <section class="spacer green">
-<div class="container">
-  <div class="row">
-    <div class="span6 alignright flyLeft">
-      <blockquote class="large">
-         If time travel is possible, where are the tourists from the future? <cite>Stephen Hawking, A Brief History of Time</cite>
-      </blockquote>
-    </div>
-    <div class="span6 aligncenter flyRight">
-      <img src="/icons/rocket.png" alt="" />
+  <div class="container">
+    <div class="row">
+      <div class="span6 alignright flyLeft">
+        <blockquote class="large">
+           If time travel is possible, where are the tourists from the future? <cite>Stephen Hawking, A Brief History of Time</cite>
+        </blockquote>
+      </div>
+      <div class="span6 aligncenter flyRight">
+        <img src="/icons/rocket.png" alt="" />
+      </div>
     </div>
   </div>
-</div>
 </section>
 <!-- end spacer section -->
 <!-- section: team -->
 <section id="about" class="section">
-<div class="container">
-  <h4>Introduction</h4>
-  <div class="row">
-    <div class="span4 offset1">
-      <div>
-        <p>
-          <%= current_user.context.aboutDescription %>
-        </p>
+  <div class="container">
+    <h4>Introduction</h4>
+    <div class="row">
+      <div class="span4 offset1">
+        <div>
+          <p>
+            <%= current_user.context.aboutDescription %>
+          </p>
+        </div>
       </div>
-    </div>
-    <div class="span6">
-      <div class="aligncenter">
-        <% if current_user.context.aboutPicture %>
-          <img class="team-thumb img-circle" src=<%= current_user.context.aboutPicture %> alt="" />
-        <% else %>
-          <img class="team-thumb img-circle" src='/icons/creativity.png' alt="" />
-        <% end %>
+      <div class="span6">
+        <div class="aligncenter">
+          <% if current_user.context.aboutPicture %>
+            <img class="team-thumb img-circle" src=<%= current_user.context.aboutPicture %> alt="" />
+          <% else %>
+            <img class="team-thumb img-circle" src='/icons/creativity.png' alt="" />
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
-</div>
 <!-- /.container -->
 </section>
 <!-- end section: team -->
 <!-- section: tellers -->
 <section id="tellers" class="section orange">
-<div class="container">
-  <h4>Tellers</h4>
-  <!-- Four columns -->
-  <div class="row offset1">
+  <div class="container">
+    <h4>Tellers</h4>
+    <!-- Four columns -->
+    <div class="row offset1">
 
-    <% @user.tellers.first(5).each_with_index do | teller, index| %>
+      <% @user.tellers.first(5).each_with_index do | teller, index| %>
 
-      <div class="span2 flyIn" >
-        <div class="people">
-          <img class="team-thumb img-circle" src=<%= teller.avatar %> alt="" />
-          <h3><%= teller.name %></h3>
-          <p>
-            <%= teller.title %>
-          </p>
+        <div class="span2 flyIn" >
+          <div class="people">
+            <img class="team-thumb img-circle" src=<%= teller.avatar %> alt="" />
+            <h3><%= teller.name %></h3>
+            <p>
+              <%= teller.title %>
+            </p>
+          </div>
         </div>
-      </div>
 
-    <% end %>
+      <% end %>
 
+    </div>
   </div>
-</div>
 </section>
 <!-- end section: tellers -->
 <!-- section: line -->
 <section id="line" class="section">
-<div class="container clearfix">
-  <h4>My Line</h4>
-  <!-- portfolio filter -->
-  <div class="row">
-    <div id="filters" class="span12">
-      <ul class="clearfix">
-        <li><a href="#" data-filter="*" class="active">
-        <h5>All</h5>
-        </a></li>
-        <li><a href="#" data-filter="first">
-        <h5>First</h5>
-        </a></li>
-        <li><a href="#" data-filter="activity">
-        <h5>Activities</h5>
-        </a></li>
-        <li><a href="#" data-filter="custom">
-        <h5>Customs</h5>
-        </a></li>
-        <li><a href="#" data-filter="trip">
-        <h5>Trips</h5>
-        </a></li>
-      </ul>
-      <input id="search_filter" type="text" placeholder="Search by tag...">
-      
-    </div>
-    <!-- END PORTFOLIO FILTERING -->
-  </div>
-  <div class="row">
-    <div class="span12">   
-      <div class="timeline-wrapper clearfix">
-          <div class="timeline-content-day">  
-              <div class="timeline-line"></div>
-
-              <% @user.stories.order("RANDOM()").limit(5).each_with_index do | story, index| %>
-
-                <!-- portfolio item -->
-                <div class="timeline-content-item" data-timeline="hour-8">
-                    <span><%= story.date.strftime("%Y %b %d") %></span>
-                    <div class="timeline-content-item-reveal">
-                        <a href=<%= story.image %> data-pretty="prettyPhoto[gallery1]" >
-                            <img src=<%= story.image %> >
-                            <span><%= story.name %></span>
-                        </a>
-                    </div>
-                </div>
-                <!-- end portfolio item -->
-
-              <% end %>
-
-          </div>
+  <div class="container clearfix">
+    <h4>My Line</h4>
+    <!-- portfolio filter -->
+    <div class="row">
+      <div id="filters" class="span12">
+        <ul class="clearfix">
+          <li><a data-filter="*" class="active">
+          <h5>All</h5>
+          </a></li>
+          <li><a data-filter="first">
+          <h5>First</h5>
+          </a></li>
+          <li><a data-filter="activity">
+          <h5>Activities</h5>
+          </a></li>
+          <li><a data-filter="custom">
+          <h5>Customs</h5>
+          </a></li>
+          <li><a data-filter="trip">
+          <h5>Trips</h5>
+          </a></li>
+        </ul>
+        <input id="search_filter" type="text" placeholder="Search by tag...">
+        
       </div>
+      <!-- END PORTFOLIO FILTERING -->
+    </div>
+    <div class="row">
+      <div class="span12">   
+        <div class="timeline-wrapper clearfix">
+            <div class="timeline-content-day">  
+                <div class="timeline-line"></div>
+                <button id="prev" class="corousel-btn prev" hidden >Prev</button>
+                <% @user.stories.order("RANDOM()").limit(5).each_with_index do | story, index| %>
+                  <!-- portfolio item -->
+                  <div class="timeline-content-item" data-timeline="hour-8">
+                      <span><%= story.date.strftime("%Y %b %d") %></span>
+                      <div class="timeline-content-item-reveal">
+                          <a href="#" class="pop" >
+                              <img src=<%= story.image %> >
+                              <span><%= story.name %></span>
+                          </a>
+                      </div>
+                  </div>
+                  <!-- end portfolio item -->
+                <% end %>
+                <button id="next" class="corousel-btn next" >Next</button>
+
+            </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 </section>
 <!-- spacer section -->
 <section class="spacer bg3">
-<div class="container">
-  <div class="row">
-    <div class="span12 aligncenter flyLeft">
-      <blockquote class="large">
-         We are the link between our present and your future
-      </blockquote>
-    </div>
-    <div class="span12 aligncenter flyRight">
-      <i class="icon-rocket icon-10x"></i>
+  <div class="container">
+    <div class="row">
+      <div class="span12 aligncenter flyLeft">
+        <blockquote class="large">
+           We are the link between our present and your future
+        </blockquote>
+      </div>
+      <div class="span12 aligncenter flyRight">
+        <i class="icon-rocket icon-10x"></i>
+      </div>
     </div>
   </div>
-</div>
 </section>
 <!-- end spacer section -->
 <!-- section: blog -->
 <section id="blog" class="section">
-<div class="container">
-  <h4>Blog</h4>
-  <!-- Three columns -->
-  <div class="row">
-    <div class="span3">
-      <div class="home-post">
-        <div class="post-image">
-          <img class="max-img" src="/blog/img1.jpg" alt="" />
+  <div class="container">
+    <h4>Blog</h4>
+    <!-- Three columns -->
+    <div class="row">
+      <div class="span3">
+        <div class="home-post">
+          <div class="post-image">
+            <img class="max-img" src="/blog/img1.jpg" alt="" />
+          </div>
+          <div class="post-meta">
+            <i class="icon-file icon-2x"></i>
+            <span class="date">June 19, 2013</span>
+            <span class="tags"><a href="#">Design</a>, <a href="#">Blog</a></span>
+          </div>
+          <div class="entry-content">
+            <h5><strong><a href="#">New design trends</a></strong></h5>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. &hellip;
+            </p>
+            <a href="#" class="more">Read more</a>
+          </div>
         </div>
-        <div class="post-meta">
-          <i class="icon-file icon-2x"></i>
-          <span class="date">June 19, 2013</span>
-          <span class="tags"><a href="#">Design</a>, <a href="#">Blog</a></span>
+      </div>
+      <div class="span3">
+        <div class="home-post">
+          <div class="post-image">
+            <img class="max-img" src="/blog/img2.jpg" alt="" />
+          </div>
+          <div class="post-meta">
+            <i class="icon-file icon-2x"></i>
+            <span class="date">June 19, 2013</span>
+            <span class="tags"><a href="#">Design</a>, <a href="#">News</a></span>
+          </div>
+          <div class="entry-content">
+            <h5><strong><a href="#">Retro is great</a></strong></h5>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. &hellip;
+            </p>
+            <a href="#" class="more">Read more</a>
+          </div>
         </div>
-        <div class="entry-content">
-          <h5><strong><a href="#">New design trends</a></strong></h5>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. &hellip;
-          </p>
-          <a href="#" class="more">Read more</a>
+      </div>
+      <div class="span3">
+        <div class="home-post">
+          <div class="post-image">
+            <img class="max-img" src="/blog/img3.jpg" alt="" />
+          </div>
+          <div class="post-meta">
+            <i class="icon-file icon-2x"></i>
+            <span class="date">June 22, 2013</span>
+            <span class="tags"><a href="#">Design</a>, <a href="#">Tips</a></span>
+          </div>
+          <div class="entry-content">
+            <h5><strong><a href="#">Isometric mockup</a></strong></h5>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. &hellip;
+            </p>
+            <a href="#" class="more">Read more</a>
+          </div>
+        </div>
+      </div>
+      <div class="span3">
+        <div class="home-post">
+          <div class="post-image">
+            <img class="max-img" src="/blog/img4.jpg" alt="" />
+          </div>
+          <div class="post-meta">
+            <i class="icon-file icon-2x"></i>
+            <span class="date">June 27, 2013</span>
+            <span class="tags"><a href="#">News</a>, <a href="#">Tutorial</a></span>
+          </div>
+          <div class="entry-content">
+            <h5><strong><a href="#">Free icon set</a></strong></h5>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. &hellip;
+            </p>
+            <a href="#" class="more">Read more</a>
+          </div>
         </div>
       </div>
     </div>
-    <div class="span3">
-      <div class="home-post">
-        <div class="post-image">
-          <img class="max-img" src="/blog/img2.jpg" alt="" />
-        </div>
-        <div class="post-meta">
-          <i class="icon-file icon-2x"></i>
-          <span class="date">June 19, 2013</span>
-          <span class="tags"><a href="#">Design</a>, <a href="#">News</a></span>
-        </div>
-        <div class="entry-content">
-          <h5><strong><a href="#">Retro is great</a></strong></h5>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. &hellip;
-          </p>
-          <a href="#" class="more">Read more</a>
-        </div>
-      </div>
-    </div>
-    <div class="span3">
-      <div class="home-post">
-        <div class="post-image">
-          <img class="max-img" src="/blog/img3.jpg" alt="" />
-        </div>
-        <div class="post-meta">
-          <i class="icon-file icon-2x"></i>
-          <span class="date">June 22, 2013</span>
-          <span class="tags"><a href="#">Design</a>, <a href="#">Tips</a></span>
-        </div>
-        <div class="entry-content">
-          <h5><strong><a href="#">Isometric mockup</a></strong></h5>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. &hellip;
-          </p>
-          <a href="#" class="more">Read more</a>
-        </div>
-      </div>
-    </div>
-    <div class="span3">
-      <div class="home-post">
-        <div class="post-image">
-          <img class="max-img" src="/blog/img4.jpg" alt="" />
-        </div>
-        <div class="post-meta">
-          <i class="icon-file icon-2x"></i>
-          <span class="date">June 27, 2013</span>
-          <span class="tags"><a href="#">News</a>, <a href="#">Tutorial</a></span>
-        </div>
-        <div class="entry-content">
-          <h5><strong><a href="#">Free icon set</a></strong></h5>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. &hellip;
-          </p>
-          <a href="#" class="more">Read more</a>
-        </div>
-      </div>
+    <div class="blankdivider30"></div>
+    <div class="aligncenter">
+      <a href="#" class="btn btn-large btn-theme">More blog post</a>
     </div>
   </div>
-  <div class="blankdivider30"></div>
-  <div class="aligncenter">
-    <a href="#" class="btn btn-large btn-theme">More blog post</a>
-  </div>
-</div>
 </section>
 
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">              
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <img src="" class="imagepreview" style="width: 100%;" >
+      </div>
+    </div>
+  </div>
 </div>
+
+

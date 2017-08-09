@@ -3,6 +3,11 @@
   width: 30%;
 }
 
+.corousel-btn{
+    background: #1BAC91;
+    border-color: #1BAC91;
+}
+
 .timeline-wrapper {
   display: block;
   width: 90%;
