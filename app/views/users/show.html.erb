@@ -22,7 +22,7 @@
       <div class="span4 offset1">
         <div>
           <p class="justify">
-            <%= current_user.context.aboutDescription %>
+            <%= simple_format(current_user.context.aboutDescription) %>
           </p>
         </div>
       </div>

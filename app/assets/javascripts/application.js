@@ -15,7 +15,6 @@
 //= require_tree .
 
 window.onload = function() {
-  getAllStories();
   localStorage.removeItem("tagSelected");
   localStorage.setItem("next", 0);
 };

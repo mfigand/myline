@@ -1,8 +1,7 @@
 
-.justify p:after {
-  content: "";
-  display: inline-block;
-  width: 100%;
+.justify {
+  text-align: justify;
+  text-justify: none;
 }
 
 
