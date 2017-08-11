@@ -31,8 +31,8 @@ jQuery(document).ready(function($) {
             '<div class="timeline-content-item" data-timeline="hour-8">'+
               '<span>'+ story.date +'</span>'+
               '<div class="timeline-content-item-reveal">'+
-                '<a href="#" class="pop">'+
-                  '<img src='+ story.image +' >'+
+                '<a class="pop">'+
+                  '<img src='+ story.image +' alt="'+ story.name +'" data-imageTag='+ story.tag +' >'+
                   '<span>'+ story.name +'</span>'+
                 '</a>'+
               '</div>'+
@@ -108,9 +108,29 @@ jQuery(document).ready(function($) {
       $(this).parent().addClass("active");
     });
 
-    $('.pop').on('click', function() {
-      $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-      $('#imagemodal').modal('show');   
+    $('.pop').unbind().on('click', function() {
+
+      var title = $(this).find('img')[0].nextElementSibling.innerText;
+      var srcImage = $(this).find('img').attr('src');
+      var tags = "";
+      
+      if ($(this).find('img').attr('data-imageTag').charAt(0) != "[") {
+        tags = $(this).find('img').attr('data-imageTag');
+      }
+      else {
+        JSON.parse($(this).find('img').attr('data-imageTag')).map(function (currentValue, index, array){
+          tags === "" ? tags = currentValue : tags = tags + ", " + currentValue;
+        });
+      };
+      
+      $('.modal-title').empty();
+      $('.modal-body').empty();
+      $('.modal-footer').empty();
+      
+      $('.modal-title').append('<div class="col-md-8 text-justify">'+ title +'</div>');
+      $('.modal-body').append('<img src='+ srcImage +' class="imagepreview img-responsive" style="width: 100%;" >');
+      $('.modal-footer').append('<div class="col-md-8 text-justify"> Tags: '+ tags +'</div>');
+      $('#modal').modal('show');   
     });   
 
     return false;
