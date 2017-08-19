@@ -8,6 +8,89 @@ jQuery(document).ready(function($) {
     }
   });
 
+  function uploaderModal(){
+
+    var pathname = window.location.pathname.split('/');
+    var user_id = pathname[pathname.length-1];
+    var uploadedFiles = [];
+
+    $('.modal-title').append('<div class="col-md-8 text-justify"> Upload Image </div>');
+    $('.modal-body').append(
+      '<form class="edit_user" id="edit_user_'+user_id+'" enctype="multipart/form-data" action="/users/'+user_id+'/stories" accept-charset="UTF-8" method="post">'+
+        '<div class="field">'+
+        '<label for="name">Name</label>'+
+        '<input size="10" required="required" type="text" value="" name="story[name]" id="story_name">'+
+        '</div>'+
+        '<div class="field">'+
+        '<label for="date">Date</label>'+
+        '<input size="10" required="required" type="date" value="" name="story[date]" id="story_date">'+
+        '</div>'+
+        '<div id="drop" draggable="true">'+
+            '<p> Drop Here </p><br>'+
+            '<a> Browse </a>'+
+            '<input type="file" name="story[image]" id="story_image" accept="image/*" capture="camera"/>'+
+        '</div><br>'+
+        '<div class="field">'+
+        '<label for="tag">Tags<h6>(separate tags by commas)</h6></label>'+
+        '<input size="10" required="required" type="text" name="story[tag]" id="story_tag">'+
+        '</div>'+
+        '<div class="field" hidden>'+
+        '<label for="user_id">Teller</label>'+
+        '<input type="text" name="story[user_id]" value="'+ user_id +'" id="user_id">'+
+        '</div>'+
+        '<input type="submit" name="commit" value="Save">'+
+      '</form>'
+      );
+    $('#modal').modal('show'); 
+
+    $('#drop a').click(function(){
+        // Simulate a click on the file input button
+        // to show the file browser dialog
+        $(this).parent().find('input').click();
+    });
+
+    $('#imgCapture').on('change', function(e){
+
+      var tgt = e.target || window.event.srcElement;
+
+      uploadedFiles.push(tgt.files[0]);
+
+      $('#drop a, #drop p').hide();
+
+      $('#drop').append(
+        '<ul><li class="working">'+
+          '<input type="text" value="0" data-width="48" data-height="48"'+
+          'data-fgColor="#0788a5" data-readOnly="1" data-bgColor="#3e4043" />'+
+          '<p><i>'+ tgt.files[0].name+'</i></p>'+
+          '<span></span>'+
+        '</li></ul>'
+      );
+
+    });
+    return false;
+  };
+
+  function imageModal(image){
+
+    var title = image.find('img')[0].nextElementSibling.innerText;
+    var srcImage = image.find('img').attr('src');
+    var tags = "";
+    
+    if (image.find('img').attr('data-imageTag').charAt(0) != "[") {
+      tags = image.find('img').attr('data-imageTag');
+    }
+    else {
+      JSON.parse(image.find('img').attr('data-imageTag')).map(function (currentValue, index, array){
+        tags === "" ? tags = currentValue : tags = tags + ", " + currentValue;
+      });
+    };
+
+    $('.modal-title').append('<div class="col-md-8 text-justify">'+ title +'</div>');
+    $('.modal-body').append('<img src='+ srcImage +' class="imagepreview img-responsive" style="width: 100%;" >');
+    $('.modal-footer').append('<div class="col-md-8 text-justify"> Tags: '+ tags +'</div>');
+    $('#modal').modal('show'); 
+  }
+
   //Reorder items
   function reorderItems(tagSelected, event=null, changeTagFilter=false){
     
@@ -26,7 +109,7 @@ jQuery(document).ready(function($) {
 
     $.each(allStories, function( index, story ) {
       $.each( story.tag, function( i, storyTag){
-        if (storyTag === tagSelected || tagSelected === "*"){
+        if (storyTag === tagSelected || tagSelected === "*" || tagSelected === ""){
           storiesToShow.push(
             '<div class="timeline-content-item" data-timeline="hour-8">'+
               '<span>'+ story.date +'</span>'+
@@ -60,9 +143,6 @@ jQuery(document).ready(function($) {
         }
       });
     }
-
-    
-    
 
     if (nextCounter < storiesToShow.length && lastStory === false) {
       $('.timeline-content-day').append('<button id="next" class="corousel-btn next" >Next</button>');
@@ -102,36 +182,35 @@ jQuery(document).ready(function($) {
     return false;
   }
 
+  function cleanModal(){
+
+    $('.modal-title').empty();
+    $('.modal-body').empty();
+    $('.modal-footer').empty();
+
+    return false;
+  }
+
   function addMouseEvent(){
     $(".timeline-wrapper .timeline-content-item > span").on("mouseenter mouseleave", function(e){
       $(".timeline-wrapper .timeline-content-item.active").removeClass("active");
       $(this).parent().addClass("active");
     });
 
-    $('.pop').unbind().on('click', function() {
+    $('.pop, .uploadImage').unbind().on('click', function() {
 
-      var title = $(this).find('img')[0].nextElementSibling.innerText;
-      var srcImage = $(this).find('img').attr('src');
-      var tags = "";
-      
-      if ($(this).find('img').attr('data-imageTag').charAt(0) != "[") {
-        tags = $(this).find('img').attr('data-imageTag');
+      cleanModal();
+
+      switch ($(this).attr('class').split(" ")[0]) {
+        case "pop":
+          imageModal($(this));
+          break;
+        case "uploadImage":
+          uploaderModal($(this));
+          break;
       }
-      else {
-        JSON.parse($(this).find('img').attr('data-imageTag')).map(function (currentValue, index, array){
-          tags === "" ? tags = currentValue : tags = tags + ", " + currentValue;
-        });
-      };
-      
-      $('.modal-title').empty();
-      $('.modal-body').empty();
-      $('.modal-footer').empty();
-      
-      $('.modal-title').append('<div class="col-md-8 text-justify">'+ title +'</div>');
-      $('.modal-body').append('<img src='+ srcImage +' class="imagepreview img-responsive" style="width: 100%;" >');
-      $('.modal-footer').append('<div class="col-md-8 text-justify"> Tags: '+ tags +'</div>');
-      $('#modal').modal('show');   
-    });   
+
+    });
 
     return false;
   }
