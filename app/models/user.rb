@@ -15,15 +15,6 @@ class User < ActiveRecord::Base
   #   end
   # /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{8,}$/
 
-  has_attached_file :avatar, styles: {
-   medium: "300x300>",
-   small: "200x200!",
-   xsmall: "150x150>",
-   thumb: "100x100>",
-   original: "1024x1024"},
-   default_url: '/images/Favicon.png'
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
-
   has_one :context
   has_many :tellers
   has_many :stories

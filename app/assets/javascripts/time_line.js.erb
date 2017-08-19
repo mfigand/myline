@@ -28,7 +28,7 @@ jQuery(document).ready(function($) {
         '<div id="drop" draggable="true">'+
             '<p> Drop Here </p><br>'+
             '<a> Browse </a>'+
-            '<input type="file" name="story[image]" id="story_image" accept="image/*" capture="camera"/>'+
+            '<input type="file" name="story[avatar]" id="story_avatar" accept="image/*" capture="camera"/>'+
         '</div><br>'+
         '<div class="field">'+
         '<label for="tag">Tags<h6>(separate tags by commas)</h6></label>'+
@@ -49,7 +49,7 @@ jQuery(document).ready(function($) {
         $(this).parent().find('input').click();
     });
 
-    $('#imgCapture').on('change', function(e){
+    $('#story_avatar').on('change', function(e){
 
       var tgt = e.target || window.event.srcElement;
 
@@ -86,7 +86,7 @@ jQuery(document).ready(function($) {
     };
 
     $('.modal-title').append('<div class="col-md-8 text-justify">'+ title +'</div>');
-    $('.modal-body').append('<img src='+ srcImage +' class="imagepreview img-responsive" style="width: 100%;" >');
+    $('.modal-body').append('<img src='+ srcImage +' class="imagepreview img-responsive" style="width: 100%; height:100%" >');
     $('.modal-footer').append('<div class="col-md-8 text-justify"> Tags: '+ tags +'</div>');
     $('#modal').modal('show'); 
   }

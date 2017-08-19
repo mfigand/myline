@@ -1,13 +1,14 @@
 source 'https://rubygems.org'
 
-gem 'pry'
-gem 'devise'
-gem 'cancancan'
-gem 'rolify'
-gem 'omniauth-facebook'
-gem 'bcrypt'
-gem "paperclip"
 gem 'aws-sdk'
+gem 'bcrypt'
+gem 'cancancan'
+gem 'devise'
+gem 'omniauth-facebook'
+gem "paperclip", "~> 5.0.0"
+gem 'pry'
+gem 'rolify'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
 # Use postgresql as the database for Active Record

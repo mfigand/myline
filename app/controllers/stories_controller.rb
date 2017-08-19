@@ -11,9 +11,8 @@ class StoriesController < ApplicationController
   end
 
   def create
-    binding.pry
     @story = Story.new story_params
-    @story.tag = story_params[:tag].split(',')
+    @story.tag = story_params[:tag].split(', ')
     @story.teller_id = current_user.id
 
     if @story.save
@@ -25,6 +24,7 @@ class StoriesController < ApplicationController
       rescue Exception => ex
         puts "An error of type #{ex.class} happened, message is #{ex.message}"
         flash[:alert] = "ALERT Story not created because #{ex.message}"
+        binding.pry
       end
       redirect_to user_path(story_params[:user_id])
     end
@@ -60,7 +60,7 @@ class StoriesController < ApplicationController
 
  def story_params
 
-  params.require(:story).permit(:name, :date, :image, :tag, :user_id)
+  params.require(:story).permit(:name, :date, :avatar, :tag, :user_id)
  end
 
 end
