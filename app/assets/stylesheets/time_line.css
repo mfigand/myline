@@ -4,6 +4,12 @@
   text-justify: none;
 }
 
+.close {
+  float: none !important;
+}
+.closeBtn {
+  text-align: right;
+}
 
 #search_filter{
   width: 30%;
