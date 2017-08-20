@@ -13,38 +13,104 @@ jQuery(document).ready(function($) {
     var pathname = window.location.pathname.split('/');
     var user_id = pathname[pathname.length-1];
     var uploadedFiles = [];
+    var tagValues = [];
 
-    // $('.modal-title').append('<div class="col-md-8 text-justify"> Upload Image </div>');
     $('.modal-body').append(
-      // '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+
       '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
       '<div class="col-md-8 text-center"><b> Upload Image </b></div>'+
       '<form class="edit_user" id="edit_user_'+user_id+'" enctype="multipart/form-data" action="/users/'+user_id+'/stories" accept-charset="UTF-8" method="post">'+
         '<div class="field">'+
-        '<label for="name">Name</label>'+
-        '<input size="10" required="required" type="text" value="" name="story[name]" id="story_name">'+
+          '<label for="name">Name</label>'+
+          '<input size="10" required="required" type="text" value="" name="story[name]" id="story_name">'+
         '</div>'+
         '<div class="field">'+
-        '<label for="date">Date</label>'+
-        '<input size="10" required="required" type="date" value="" name="story[date]" id="story_date">'+
+          '<label for="date">Date</label>'+
+          '<input size="10" required="required" type="date" value="" name="story[date]" id="story_date">'+
         '</div>'+
         '<div id="drop" draggable="true">'+
-            '<p> Drop Here </p><br>'+
-            '<a> Browse </a>'+
-            '<input type="file" name="story[avatar]" id="story_avatar" accept="image/*" capture="camera"/>'+
+          '<p> Drop Here </p><br>'+
+          '<a> Browse </a>'+
+          '<input type="file" name="story[avatar]" id="story_avatar" accept="image/*" capture="camera" required="required" />'+
         '</div><br>'+
-        '<div class="field">'+
-        '<label for="tag">Tags<h6>(separate tags by commas)</h6></label>'+
-        '<input size="10" required="required" type="text" name="story[tag]" id="story_tag">'+
-        '</div>'+
+        '<div class="field" id="tagContainer">'+
+          '<label for="tag">Tags</label>'+
+          '<input size="10" type="text" name="story[tag]" id="story_tag" required="required" >'+
+        '</div><br>'+
         '<div class="field" hidden>'+
-        '<label for="user_id">Teller</label>'+
-        '<input type="text" name="story[user_id]" value="'+ user_id +'" id="user_id">'+
+          '<label for="user_id">Teller</label>'+
+          '<input type="text" name="story[user_id]" value="'+ user_id +'" id="user_id" required="required" >'+
         '</div>'+
-        '<input type="submit" name="commit" value="Save">'+
+        '<input type="submit" name="commit" value="Save" id="submitBtn" >'+
       '</form>'
       );
-    $('#modal').modal('show'); 
+
+    $('#modal').modal('show');
+
+    $(window).keydown(function(event){
+    if( event.keyCode == 13 && event.target.id != "story_tag" ) {
+      event.preventDefault();
+      return false;
+    }
+  });
+
+    $("form input[type=submit]").click(function() {
+      var tags = "";
+      $.each(tagValues,function(index,tag){
+        tag != "" ? tags += tag + ";" : false;
+      })
+      $('#story_tag').val(tags);
+      $("input[type=submit]", $(this).parents("form")).removeAttr("clicked");
+      $(this).attr("clicked", "true");
+    });
+
+    function createTags(event){
+      var $element = $(event.target);
+      var val = $element.val().replace('"', '\\"');
+      
+      if (val.replace(/\s/g, '').length != 0) {
+
+        $('#story_tag').val('')
+
+        $('#tagContainer').append(
+          '<div class="tag label label-info" role="alert">'+
+            '<strong>'+val+' </strong>'+
+            '<button type="button" class="close closeTag" data-dismiss="alert" aria-label="Close">'+
+              '<span aria-hidden="true"> &times;</span>'+
+            '</button>'+
+          '</div>'
+          );
+
+        $('.closeTag').on('click',function(event){
+          var tagToDelete = event.currentTarget.previousElementSibling.innerText.replace(/\s/g, '');
+          
+          $.each(tagValues,function(index,tag){
+            if(tagToDelete === tag.replace(/\s/g, '')){
+              tagValues[index] = "";
+            }
+          });
+
+        })
+
+        tagValues = [];
+
+        $.each($(".tag strong"), function( index, tag ) { tagValues.push(tag.innerText) });
+      }
+    
+      event.preventDefault();
+      return false;
+      
+    }
+
+    $('#story_tag').on('keypress', function(event) {
+      if (event.keyCode == 0 || event.keyCode == 13){
+        createTags(event);
+      }
+    });
+
+    $('#story_tag').focusout(function(event) {
+      createTags(event);
+    });
+  
 
     $('#drop a').click(function(){
         // Simulate a click on the file input button
@@ -88,7 +154,6 @@ jQuery(document).ready(function($) {
       });
     };
 
-    // $('.modal-title').append('<div class="col-md-8 text-justify">'+ title +'</div>');
     $('.modal-body').append(
       '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
       '<div class="col-md-8 text-center"> <b>'+ title +'</b> </div><br>'+ 

@@ -12,7 +12,7 @@ class StoriesController < ApplicationController
 
   def create
     @story = Story.new story_params
-    @story.tag = story_params[:tag].split(', ')
+    @story.tag = story_params[:tag].split(' ;')
     @story.teller_id = current_user.id
 
     if @story.save
