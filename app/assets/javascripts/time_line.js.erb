@@ -144,6 +144,13 @@ jQuery(document).ready(function($) {
     var title = image.find('img')[0].nextElementSibling.innerText;
     var srcImage = image.find('img').attr('src');
     var tags = "";
+    var css = {
+                'maxWidth': $(window).width() - 300,
+                'maxHeight': $(window).height() - 100
+            };
+
+    var imgHeight = image.find('img')[0].naturalHeight+100;
+    var imgWidth = image.find('img')[0].naturalWidth+30;
     
     if (image.find('img').attr('data-imageTag').charAt(0) != "[") {
       tags = image.find('img').attr('data-imageTag');
@@ -153,15 +160,23 @@ jQuery(document).ready(function($) {
         tags === "" ? tags = currentValue : tags = tags + ", " + currentValue;
       });
     };
-
+    $('.modal').addClass('imgModal');
     $('.modal-body').append(
       '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
-      '<div class="col-md-8 text-center"> <b>'+ title +'</b> </div><br>'+ 
-      '<img src="'+ srcImage +'" class="imagepreview" style="width: 100%;" >'
+      '<div class="col-md-8 text-center"> <b>'+ title +'</b> </div><br>'+
+      '<img src="'+ srcImage +'" alt="'+ title +'_my_line">'
       // '<img src='+ srcImage +' class="imagepreview img-responsive" style="width: 100%; height:100%" >'
     );
     $('.modal-footer').append('<div class="col-md-8 text-justify"> <b>Tags:</b> '+ tags +'</div>');
-    $('#modal').modal('show'); 
+    $('#modal').modal('show');
+
+    $('.modal').css({'maxHeight': css.maxHeight, 'maxWidth': css.maxWidth});
+    $('.modal-dialog').css({'maxHeight': css.maxHeight, 'maxWidth': css.maxWidth});
+    $('.modal-content').css({'maxHeight': css.maxHeight, 'maxWidth': css.maxWidth});
+    $('.modal-body').css({'maxHeight': css.maxHeight, 'maxWidth': css.maxWidth});
+
+    $('.modal-body, .close').removeClass('hidden');
+
   }
 
   //Reorder items
