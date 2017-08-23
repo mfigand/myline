@@ -8,6 +8,33 @@ jQuery(document).ready(function($) {
     }
   });
 
+  function resizeModal(imgHeight,imgWidth){
+
+    var maxWidth = $(window).width()*0.9;
+    var maxHeight = $(window).height()*0.9;
+    var modalHeaderHeight = 60;
+
+    var heightToShowModal = 0;
+    var widthToShowModal = 0;
+    var heightToShowImgage = 0;
+    var widthToShowImage = 0;
+
+    if (maxHeight >= (imgHeight+modalHeaderHeight)*1.15) {
+      heightToShowModal = (imgHeight+modalHeaderHeight);
+      heightToShowImgage = imgHeight;
+    }else {
+      heightToShowModal = maxHeight;
+      heightToShowImgage = heightToShowModal*0.85;
+    }
+
+    $('.modal').css({'maxHeight': maxHeight, 'height': heightToShowModal*1.15, 'maxWidth': maxWidth, 'width': imgWidth});
+    $('.modal-dialog').css({'maxHeight': maxHeight, 'height': heightToShowModal, 'maxWidth': maxWidth, 'width': imgWidth});
+    $('.modal-content').css({'maxHeight': maxHeight, 'height': heightToShowModal, 'maxWidth': maxWidth, 'width': imgWidth});
+    $('.modal-body').css({'maxHeight': maxHeight, 'height': heightToShowModal*0.9, 'maxWidth': maxWidth, 'width': imgWidth});
+    $('.modal-body img').css({'maxHeight': heightToShowModal*0.9, 'height': heightToShowImgage, 'maxWidth': maxWidth});
+
+  }
+
   function uploaderModal(){
 
     var pathname = window.location.pathname.split('/');
@@ -15,36 +42,40 @@ jQuery(document).ready(function($) {
     var uploadedFiles = [];
     var tagValues = [];
 
-    $('.modal-body').append(
-      '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
-      '<div class="col-md-8 text-center"><b> Upload Image </b></div>'+
-      '<form class="edit_user" id="edit_user_'+user_id+'" enctype="multipart/form-data" action="/users/'+user_id+'/stories" accept-charset="UTF-8" method="post">'+
-        '<div class="field">'+
-          '<label for="name">Name</label>'+
-          '<input size="10" required="required" type="text" value="" name="story[name]" id="story_name">'+
-        '</div>'+
-        '<div class="field">'+
-          '<label for="date">Date</label>'+
-          '<input size="10" required="required" type="date" value="" name="story[date]" id="story_date">'+
-        '</div>'+
-        '<div id="drop" draggable="true">'+
-          '<p> Drop Here </p><br>'+
-          '<a> Browse </a>'+
-          '<input type="file" name="story[avatar]" id="story_avatar" accept="image/*" capture="camera" required="required" />'+
-        '</div><br>'+
-        '<div class="field" id="tagContainer">'+
-          '<label for="tag">Tags</label>'+
-          '<input size="10" type="text" name="story[tag]" id="story_tag" required="required" >'+
-        '</div><br>'+
-        '<div class="field" hidden>'+
-          '<label for="user_id">Teller</label>'+
-          '<input type="text" name="story[user_id]" value="'+ user_id +'" id="user_id" required="required" >'+
-        '</div>'+
-        '<input type="submit" name="commit" value="Save" id="submitBtn" >'+
-      '</form>'
+    $('.modal-content').append(
+      '<div class="modal-body">'+
+        '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
+        '<div class="col-md-8 text-center"><b> Upload Image </b></div>'+
+        '<form class="edit_user" id="edit_user_'+user_id+'" enctype="multipart/form-data" action="/users/'+user_id+'/stories" accept-charset="UTF-8" method="post">'+
+          '<div class="field">'+
+            '<label for="name">Name</label>'+
+            '<input size="10" required="required" type="text" value="" name="story[name]" id="story_name">'+
+          '</div>'+
+          '<div class="field">'+
+            '<label for="date">Date</label>'+
+            '<input size="10" required="required" type="date" value="" name="story[date]" id="story_date">'+
+          '</div>'+
+          '<div id="drop" draggable="true">'+
+            '<p> Drop Here </p><br>'+
+            '<a> Browse </a>'+
+            '<input type="file" name="story[avatar]" id="story_avatar" accept="image/*" capture="camera" required="required" />'+
+          '</div><br>'+
+          '<div class="field" id="tagContainer">'+
+            '<label for="tag">Tags</label>'+
+            '<input size="10" type="text" name="story[tag]" id="story_tag" required="required" >'+
+          '</div><br>'+
+          '<div class="field" hidden>'+
+            '<label for="user_id">Teller</label>'+
+            '<input type="text" name="story[user_id]" value="'+ user_id +'" id="user_id" required="required" >'+
+          '</div>'+
+          '<input type="submit" name="commit" value="Save" id="submitBtn" >'+
+        '</form>'+
+      '</div>'
       );
 
     $('#modal').modal('show');
+    
+    resizeModal();
 
     $(window).keydown(function(event){
     if( event.keyCode == 13 && event.target.id != "story_tag" ) {
@@ -70,7 +101,6 @@ jQuery(document).ready(function($) {
       if (val.replace(/\s/g, '').length != 0) {
 
         $('#story_tag').val('')
-
         $('#tagContainer').append(
           '<div class="tag label label-info" role="alert">'+
             '<strong>'+val+' </strong>'+
@@ -139,44 +169,41 @@ jQuery(document).ready(function($) {
     return false;
   };
 
-  function imageModal(image){
+  function imageModal(event){
 
-    var title = image.find('img')[0].nextElementSibling.innerText;
-    var srcImage = image.find('img').attr('src');
+    var image = event.find('img');
+    var title = image[0].nextElementSibling.innerText;
+    var srcImage = image.attr('src');
     var tags = "";
-    var css = {
-                'maxWidth': $(window).width() - 300,
-                'maxHeight': $(window).height() - 100
-            };
+    var imgHeight = image[0].naturalHeight;
+    var imgWidth = image[0].naturalWidth;
 
-    var imgHeight = image.find('img')[0].naturalHeight+100;
-    var imgWidth = image.find('img')[0].naturalWidth+30;
-    
-    if (image.find('img').attr('data-imageTag').charAt(0) != "[") {
-      tags = image.find('img').attr('data-imageTag');
+    if (image.attr('data-imageTag').charAt(0) != "[") {
+      tags = image.attr('data-imageTag');
     }
     else {
-      JSON.parse(image.find('img').attr('data-imageTag')).map(function (currentValue, index, array){
+      JSON.parse(image.attr('data-imageTag')).map(function (currentValue, index, array){
         tags === "" ? tags = currentValue : tags = tags + ", " + currentValue;
       });
     };
+
     $('.modal').addClass('imgModal');
-    $('.modal-body').append(
-      '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
-      '<div class="col-md-8 text-center"> <b>'+ title +'</b> </div><br>'+
-      '<img src="'+ srcImage +'" alt="'+ title +'_my_line">'
-      // '<img src='+ srcImage +' class="imagepreview img-responsive" style="width: 100%; height:100%" >'
+    $('.modal-content').append(
+      '<div class="modal-body" >'+
+      '<div class="modalHeader" >'+
+        '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
+        '<div class="col-md-8 text-center"> <b>'+ title +'</b> </div><br>'+
+      '</div>'+
+        '<img src="'+ srcImage +'" alt="'+ title +'_my_line">'+
+      '</div>'+
+      '<div class="modal-footer">'+
+        '<div class="col-md-8 text-justify"> <b>Tags:</b> '+ tags +'</div>'+
+      '</div>'
     );
-    $('.modal-footer').append('<div class="col-md-8 text-justify"> <b>Tags:</b> '+ tags +'</div>');
     $('#modal').modal('show');
 
-    $('.modal').css({'maxHeight': css.maxHeight, 'maxWidth': css.maxWidth});
-    $('.modal-dialog').css({'maxHeight': css.maxHeight, 'maxWidth': css.maxWidth});
-    $('.modal-content').css({'maxHeight': css.maxHeight, 'maxWidth': css.maxWidth});
-    $('.modal-body').css({'maxHeight': css.maxHeight, 'maxWidth': css.maxWidth});
-
-    $('.modal-body, .close').removeClass('hidden');
-
+    resizeModal(imgHeight,imgWidth);
+    
   }
 
   //Reorder items
@@ -270,15 +297,6 @@ jQuery(document).ready(function($) {
     return false;
   }
 
-  function cleanModal(){
-
-    // $('.modal-title').empty();
-    $('.modal-body').empty();
-    $('.modal-footer').empty();
-
-    return false;
-  }
-
   function addMouseEvent(){
     $(".timeline-wrapper .timeline-content-item > span").on("mouseenter mouseleave", function(e){
       $(".timeline-wrapper .timeline-content-item.active").removeClass("active");
@@ -287,7 +305,9 @@ jQuery(document).ready(function($) {
 
     $('.pop, .uploadImage').unbind().on('click', function() {
 
-      cleanModal();
+      $('.modal-content').empty();
+
+      // $('.modal').removeClass('imgModal');
 
       switch ($(this).attr('class').split(" ")[0]) {
         case "pop":

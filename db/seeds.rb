@@ -33,7 +33,8 @@ stories = Story.create([
         image: '/team/img-1.jpg',
         tag: ['first'],
         teller_id: 2,
-        user_id: 1
+        user_id: 1,
+        avatar_file_name: "story _1.jpeg", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now - 12.month).to_s
     },
     {
         name: 'Story 2',
@@ -41,7 +42,8 @@ stories = Story.create([
         image: '/team/img-1.jpg',
         tag: ['activity', 'custom'],
         teller_id: 2,
-        user_id: 1
+        user_id: 1,
+        avatar_file_name: "story _2.jpeg", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now - 10.month).to_s
     },
     {
         name: 'Story 3',
@@ -49,7 +51,8 @@ stories = Story.create([
         image: '/team/img-1.jpg',
         tag: ['custom', 'trip'],
         teller_id: 2,
-        user_id: 1
+        user_id: 1,
+        avatar_file_name: "story _3.jpeg", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now - 8.month).to_s
     },
     {
         name: 'Story 4',
@@ -57,7 +60,8 @@ stories = Story.create([
         image: '/team/img-1.jpg',
         tag: ['first', 'activity'],
         teller_id: 2,
-        user_id: 1
+        user_id: 1,
+        avatar_file_name: "story _4.jpeg", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now - 5.month).to_s
     },
     {
         name: 'Story 5',
@@ -65,7 +69,8 @@ stories = Story.create([
         image: '/team/img-1.jpg',
         tag: ['trip', 'custom'],
         teller_id: 2,
-        user_id: 1
+        user_id: 1,
+        avatar_file_name: "story _5.jpeg", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now - 2.month).to_s
     },
     {
         name: 'Story 6',
@@ -73,7 +78,8 @@ stories = Story.create([
         image: '/team/img-1.jpg',
         tag: ['activity'],
         teller_id: 2,
-        user_id: 1
+        user_id: 1,
+        avatar_file_name: "story _6.jpeg", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now).to_s
     },
     {
         name: 'Story 7',
@@ -81,7 +87,8 @@ stories = Story.create([
         image: '/team/img-1.jpg',
         tag: ['trip'],
         teller_id: 2,
-        user_id: 1
+        user_id: 1,
+        avatar_file_name: "story _7.jpeg", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now + 3.month).to_s
     },
     {
         name: 'Story 8',
@@ -89,7 +96,8 @@ stories = Story.create([
         image: '/team/img-1.jpg',
         tag: ['activity','first'],
         teller_id: 2,
-        user_id: 1
+        user_id: 1,
+        avatar_file_name: "story _8.jpeg", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now + 5.month).to_s
     },
     {
         name: 'Story 9',
@@ -97,7 +105,8 @@ stories = Story.create([
         image: '/team/img-1.jpg',
         tag: ['activity'],
         teller_id: 2,
-        user_id: 1
+        user_id: 1,
+        avatar_file_name: "story _9.jpeg", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now + 7.month).to_s
     },
     {
         name: 'Story 10',
@@ -105,9 +114,11 @@ stories = Story.create([
         image: '/team/img-1.jpg',
         tag: ['custom'],
         teller_id: 2,
-        user_id: 1
+        user_id: 1,
+        avatar_file_name: "story _10.jpeg", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now + 10.month).to_s
     }
     ])
+
 
 tellers = Teller.create([{ name: 'Irene', title: 'Mamá', avatar: '/team/img-1.jpg', user_id: 1},
     {

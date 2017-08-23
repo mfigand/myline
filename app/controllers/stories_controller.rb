@@ -24,7 +24,6 @@ class StoriesController < ApplicationController
       rescue Exception => ex
         puts "An error of type #{ex.class} happened, message is #{ex.message}"
         flash[:alert] = "ALERT Story not created because #{ex.message}"
-        binding.pry
       end
       redirect_to user_path(story_params[:user_id])
     end

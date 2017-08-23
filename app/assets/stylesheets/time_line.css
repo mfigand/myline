@@ -2,6 +2,21 @@
     top: 4%;
 }
 
+.modal-content .modal-body {
+  text-align: center;
+  max-height: 100% !important;
+  max-width: 100% !important;
+}
+
+.modal-content .modal-footer{
+  margin-top: -1px !important;
+}
+
+/*.modal-body {
+  max-height: 90% !important;
+  max-width: 90% !important;
+}*/
+
 .imgModal img{
   max-height: 100% !important;
   max-width: 100% !important;

@@ -1,2 +1,2 @@
-# myline
-It`s a private time lime.
+# MY LINE
+It`s a private time line of your life.

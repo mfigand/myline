@@ -50,8 +50,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     @allStories = User.first.stories
     @allStories.map { |story|
-      story.image = story.avatar.url
-      story.save
+      if story.image === nil
+        story.image = story.avatar.url
+        story.save
+      end
     }
     render json: @allStories 
   end
