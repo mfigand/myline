@@ -12,12 +12,18 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new user_params
+
     if @user.save
       flash[:notice] = "User created succesfully"
-      render 'show'
+      render json: @user
     else
-      flash[:alert] = "ALERT User not created"
-      render 'new'
+      begin
+        raise ArgumentError, @user.errors.messages
+      rescue Exception => ex
+        puts "An error of type #{ex.class} happened, message is #{ex.message}"
+        flash[:alert] = "ALERT User not created because #{ex.message}"
+      end
+      render json: @user.errors.messages
     end
   end
 
@@ -31,7 +37,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-
+binding.pry
     if @user.update_attributes user_params
       redirect_to action: :profile
     else

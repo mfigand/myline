@@ -1,6 +1,7 @@
 class Story < ActiveRecord::Base
 
   validates :name, :date, :tag, :user_id, presence: true
+  
   # Paperclip validations
   validates :avatar, attachment_presence: true
   validates_with AttachmentPresenceValidator, attributes: :avatar

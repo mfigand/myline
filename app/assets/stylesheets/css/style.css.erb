@@ -44,6 +44,33 @@ CONTENTS:
 /* =========================================================
 01. General
 ============================================================ */
+#avatar {
+    /* This image is 687 wide by 1024 tall, similar to your aspect ratio */
+    background-image: url('/icons/rocket.png');
+    
+    /* make a square container */
+    width: 60px;
+    height: 60px;
+
+    /* fill the container, preserving aspect ratio, and cropping to fit */
+    background-size: cover;
+
+    /* center the image vertically and horizontally */
+    background-position: center;
+
+    /* round the edges to a circle with border radius 1/2 container size */
+    border-radius: 50%;
+}
+
+#avatar:hover {
+    opacity: 1;
+    z-index: 100;
+    border:5px solid #6d7579;
+}
+
+#update-cover{
+	margin-left: 20px;
+}
 
 div, article, section, header, footer, nav, li {
 	position:relative;
@@ -371,7 +398,7 @@ header .logo {
 
 /* --- Header slider --- */
 #header-wrapper.header-slider {
-	background: #444 url(/bg/bg-barriga.jpg) no-repeat center center fixed;
+	background: #444 url(/bg/bg-3.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -497,13 +524,13 @@ section.spacer.bg2 {
 	margin:0;	
 }
 
-section.spacer.bg3 {
+/*section.spacer.bg3 {
 	background: url(/bg/bg-beach.jpg) 50% 0 no-repeat fixed;
 	width:100%;
 	height:auto;
 	margin:0;	
 }
-
+*/
 section.spacer blockquote.large:before {
 	color:#eee;
 	opacity:0.6;

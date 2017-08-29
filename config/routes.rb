@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
 
   resources :users do
-    resources :context, :stories
+    resources :contexts, :stories
   end
 
 end

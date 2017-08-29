@@ -208,7 +208,8 @@ jQuery(document).ready(function($) {
 
   //Reorder items
   function reorderItems(tagSelected, event=null, changeTagFilter=false){
-    
+
+    var storiesMatch = []
     var storiesToShow = []
     var nextCounter;
     var allStories = JSON.parse(localStorage.getItem('allStories'));
@@ -224,7 +225,8 @@ jQuery(document).ready(function($) {
 
     $.each(allStories, function( index, story ) {
       $.each( story.tag, function( i, storyTag){
-        if (storyTag === tagSelected || tagSelected === "*" || tagSelected === ""){
+        if (!storiesMatch.includes(story.id) && (storyTag === tagSelected || tagSelected === "*" || tagSelected === "")){
+          storiesMatch.push(story.id);
           storiesToShow.push(
             '<div class="timeline-content-item" data-timeline="hour-8">'+
               '<span>'+ story.date +'</span>'+

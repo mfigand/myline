@@ -18,20 +18,36 @@
           <!-- Responsive navbar -->
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
           </a>
-          <h1 class="brand">
-            <% if user_signed_in? %>
-              <a href="/"><%= current_user.name %> Line</a>
-            <% else %>
-              <a href="/">My Line</a>
-            <% end %>
-          </h1>
+
           <!-- navigation -->
+          <nav class="pull-left nav-collapse collapse">
+          <ul class="nav">
+            <li>
+              <% if user_signed_in? %>
+                <div id="avatar" data-imageSrc=<%= current_user.avatar.url %> hidden></div>
+              <% else %>
+                <div id="avatar" data-imageSrc='' hidden></div>
+              <% end %>
+              
+            </li>
+            <li>
+              <h1 class="brand">
+                <% if user_signed_in? %>
+                  <a href="/"><%= current_user.name %> Line</a>
+                <% else %>
+                  <a href="/">My Line</a>
+                <% end %>
+              </h1>
+            </li>
+          </ul>
+          </nav>
+            
           <nav class="pull-right nav-collapse collapse">
           <ul id="menu-main" class="nav">
             <li><a title="team" href="#about">About</a></li>
             <li><a title="tellers" href="#tellers">Tellers</a></li>
             <li><a title="line" href="#line">Line</a></li>
-            <li><a title="blog" href="#blog">Blog</a></li>
+            <!-- <li><a title="blog" href="#blog">Blog</a></li> -->
             <li><a title="contact" href="#contact">Cuddles</a></li>
             <% if user_signed_in? %>
               <li><%= link_to 'Sign out', destroy_user_session_path, method: 'DELETE', class: 'sign_out' %></li>
@@ -45,8 +61,13 @@
     </div>
   </div>
   <!-- Header area -->
-  <div id="header-wrapper" class="header-slider">
+  <% if user_signed_in? && current_user.context %>
+    <div id="header-wrapper" class="header-slider" data-imageSrc=<%= current_user.context.coverPicture %> >
+  <% else %>
+    <div id="header-wrapper" class="header-slider" data-imageSrc='/bg/bg-1.jpg' >
+  <% end %>
     <header class="clearfix">
+      <button id="update-cover" class="pull-left" hidden>Update Cover</button><br>
     <div class="logo">
       <img src="/logo-myline.png" alt="" />
     </div>

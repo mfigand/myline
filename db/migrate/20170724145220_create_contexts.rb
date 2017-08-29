@@ -6,6 +6,7 @@ class CreateContexts < ActiveRecord::Migration
       t.string :aboutVideo
       t.string :coverPicture
       t.string :parallaxPicture
+      t.belongs_to :user, index: true
 
       t.timestamps null: false
     end

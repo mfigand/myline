@@ -20,19 +20,25 @@
     <h4>Introduction</h4>
     <div class="row">
       <div class="span4 offset1">
-        <div>
+        <div id="about-description" contenteditable="true" data-usercontext=<%= current_user.context ? current_user.context.id : false %>>
           <p class="justify">
-            <%= simple_format(current_user.context.aboutDescription) %>
+            <% if current_user.context %>
+              <%= simple_format(current_user.context.aboutDescription) %>
+            <% else %>
+              Here you can write a message to send to the future. <br><br>
+              It could be to anyone, even yourself. <br><br>
+              The objetive is to create a dinamic time line that describe in the cooles way everything that is importan to you. <br>
+            <% end %>
           </p>
         </div>
       </div>
       <div class="span6">
         <div class="aligncenter">
-          <% if current_user.context.aboutPicture %>
-            <iframe width="420" height="315" src="https://www.youtube.com/embed/ubdWitOk6zQ" frameborder="0" allowfullscreen></iframe>
-            <!-- <img class="team-thumb img-circle" src=<%= current_user.context.aboutPicture %> alt="" /> -->
+          <% if (current_user.context && current_user.context.aboutPicture != "") %>
+            <img class="team-thumb img-circle" src=<%= current_user.context.aboutPicture %> alt="MyLine" />
           <% else %>
-            <img class="team-thumb img-circle" src='/icons/creativity.png' alt="" />
+            <!-- <img class="team-thumb img-circle" src='/icons/creativity.png' alt="" /> -->
+            <iframe width="420" height="315" src="https://www.youtube.com/embed/ubdWitOk6zQ" frameborder="0" allowfullscreen></iframe>
           <% end %>
         </div>
       </div>
@@ -45,6 +51,9 @@
 <section id="tellers" class="section orange">
   <div class="container">
     <h4>Tellers</h4>
+    <p style="text-align: center;">
+       This are the people who help to tell the stories of your TimelLne.
+    </p>
     <!-- Four columns -->
     <div class="row offset1">
 
@@ -128,7 +137,24 @@
   </div>
 </section>
 <!-- spacer section -->
-<section class="spacer bg3">
+<style>
+<% if @user.context %>
+  section.spacer.bg3 {
+    background: url(<%= @user.context.parallaxPicture %>) 50% 0 no-repeat fixed;
+    width:100%;
+    height:auto;
+    margin:0; 
+  }
+<% else %>
+  section.spacer.bg3 {
+    background: url(/bg/bg-1.jpg) 50% 0 no-repeat fixed;
+    width:100%;
+    height:auto;
+    margin:0; 
+  }
+<% end %>
+</style>
+  <section class="spacer bg3" id="cover2">
   <div class="container">
     <div class="row">
       <div class="span12 aligncenter flyLeft">
