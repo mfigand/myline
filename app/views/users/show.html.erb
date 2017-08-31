@@ -20,9 +20,9 @@
     <h4>Introduction</h4>
     <div class="row">
       <div class="span4 offset1">
-        <div id="about-description" contenteditable="true" data-usercontext=<%= current_user.context ? current_user.context.id : false %>>
+        <div id="about-description" contenteditable="true" data-usercontext=<%= current_user.context ? current_user.context.id : false %> >
           <p class="justify">
-            <% if current_user.context %>
+            <% if current_user.context && current_user.context.aboutDescription != nil %>
               <%= simple_format(current_user.context.aboutDescription) %>
             <% else %>
               Here you can write a message to send to the future. <br><br>
@@ -138,16 +138,16 @@
 </section>
 <!-- spacer section -->
 <style>
-<% if @user.context %>
+<% if @user.context && @user.context.parallaxPicture != nil %>
   section.spacer.bg3 {
-    background: url(<%= @user.context.parallaxPicture %>) 50% 0 no-repeat fixed;
-    width:100%;
-    height:auto;
-    margin:0; 
+    background: url(<%= @user.context.parallaxPicture.url %>) 50% 0 no-repeat fixed !important;
+    width:100% !important;
+    height:auto !important;
+    margin:0 !important; 
   }
 <% else %>
   section.spacer.bg3 {
-    background: url(/bg/bg-1.jpg) 50% 0 no-repeat fixed;
+    background: url(/bg/bg-3.jpg) 50% 0 no-repeat fixed;
     width:100%;
     height:auto;
     margin:0; 
@@ -155,6 +155,11 @@
 <% end %>
 </style>
   <section class="spacer bg3" id="cover2">
+     <% if user_signed_in? && current_user.context %>
+        <button id="update-parallaxPicture" class="pull-left" data-contextid=<%= current_user.context.id %> hidden>Update Parallax Picture</button><br>
+    <% else %>
+        <button id="update-parallaxPicture" class="pull-left" data-contextid=<%= false %> hidden>Update Parallax Picture</button><br>
+    <% end %>
   <div class="container">
     <div class="row">
       <div class="span12 aligncenter flyLeft">
@@ -261,7 +266,7 @@
 
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">       
+    <div class="modal-content">
     </div>
   </div>
 </div>

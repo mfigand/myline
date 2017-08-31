@@ -14,7 +14,11 @@ class ContextsController < ApplicationController
     @context = Context.new context_params
     if @context.save
       flash[:notice] = "Context created succesfully"
-      render json: @context
+      if params[:context][:aboutDescription] != nil
+       render status: 200, json: @context.to_json
+      else 
+        redirect_to user_path(params[:user_id])
+      end
     else
       begin
         raise ArgumentError, @context.errors.messages
@@ -35,11 +39,15 @@ class ContextsController < ApplicationController
   end
 
   def update
-
     @context = Context.find(params[:id])
 
     if @context.update_attributes context_params
-      render json: @context
+      flash[:notice] = "Context updated succesfully"
+      if params[:context][:aboutDescription] != nil
+       render status: 200, json: @context.to_json
+      else 
+        redirect_to user_path(params[:user_id])
+      end
     else
       begin
         raise ArgumentError, @context.errors.messages

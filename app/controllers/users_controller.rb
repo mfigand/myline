@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:notice] = "User created succesfully"
-      render json: @user
+      render status: 200, json: @user.to_json
     else
       begin
         raise ArgumentError, @user.errors.messages
@@ -37,9 +37,9 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-binding.pry
+
     if @user.update_attributes user_params
-      redirect_to action: :profile
+      render status: 200, json: @user.to_json
     else
       render "edit"
     end

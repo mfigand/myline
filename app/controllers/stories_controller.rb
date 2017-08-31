@@ -17,7 +17,7 @@ class StoriesController < ApplicationController
 
     if @story.save
       flash[:notice] = "Story created succesfully"
-      redirect_to user_path(story_params[:user_id])
+      render status: 200, json: @story.to_json
     else
       begin
         raise ArgumentError, @story.errors.messages
@@ -41,7 +41,7 @@ class StoriesController < ApplicationController
     @story = Story.find(params[:id])
 
     if @story.update_attributes story_params
-      redirect_to action: :profile
+      render status: 200, json: @story.to_json
     else
       render "edit"
     end

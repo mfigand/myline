@@ -14,7 +14,7 @@ class TellersController < ApplicationController
     @teller = Teller.new teller_params
     if @teller.save
       flash[:notice] = "Teller created succesfully"
-      render 'show'
+      render status: 200, json: @teller.to_json
     else
       flash[:alert] = "ALERT Teller not created"
       render 'new'
@@ -33,7 +33,7 @@ class TellersController < ApplicationController
     @teller = teller.find(params[:id])
 
     if @teller.update_attributes teller_params
-      redirect_to action: :profile
+      render status: 200, json: @teller.to_json
     else
       render "edit"
     end

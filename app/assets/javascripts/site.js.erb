@@ -9,34 +9,103 @@ jQuery(document).ready(function($) {
     var coverImgAttr_1 = $('#header-wrapper').attr('data-imageSrc');
     var coverImgSrc_1 = 'url('+coverImgAttr_1+')';
 
-    // var coverImgAttr_2 = $('#cover2').attr('data-imageSrc');
-    // var coverImgSrc_2 = 'url('+coverImgAttr_2+')';
-
     $('#avatar').css("background-image", avatarImgSrc);
-    avatarImgAttr != "" ? $('#avatar').show() : $('#avatar').hidden();
+    avatarImgAttr != "" ? $('#avatar').show() : $('#avatar').hide();
 
     $('#header-wrapper.header-slider').css("background-image", coverImgSrc_1);
 
-    // $('#section.spacer.bg3').css("background-image", coverImgSrc_2);
 
   $('#avatar').on('click', function(){
     window.location.replace("/users/edit");
   });
 
   $("#header-wrapper").hover(startHover, endHover);
+  $("#cover2").hover(startHover, endHover);
+
 
   function startHover() {
       $('#update-cover').show();
+      $('#update-parallaxPicture').show();
   }
 
   function endHover() {
       $('#update-cover').hide();
+      $('#update-parallaxPicture').hide();
   }
 
   $('#update-cover').on('click',function(e){
-    debugger
-    // display modal
-  })
+      $('.modal-content').empty();
+      updateCoverModal(e,$(this).data('contextid'),"coverPicture");
+  });
+
+   $('#update-parallaxPicture').on('click',function(e){
+      $('.modal-content').empty();
+      updateCoverModal(e,$(this).data('contextid'),"parallaxPicture");
+  });
+
+
+  function updateCoverModal(e,contextId,field){
+      
+      if (contextId == false){
+        // Create context
+        var actionURL = "/users/"+user_id+"/contexts";
+        var method = "post";
+        var formId = "user_contexts";
+      }else{
+        // Update context
+        var actionURL = '/users/'+user_id+'/contexts/'+contextId+'';
+        var method = "put";
+        var formId = "user_contexts_update";
+      }
+      
+      $('.modal-content').append(
+      '<div class="modal-body">'+
+        '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
+        '<div class="col-md-8 text-center"><b> Upload Cover Picture </b></div>'+
+          '<form class="edit_user_context" id='+formId+' enctype="multipart/form-data" action='+actionURL+' accept-charset="UTF-8" method="post" >'+
+          '<input type="hidden" name="_method" value="'+method+'" />'+
+            
+              '<div id="drop" draggable="true">'+
+                '<p> Drop Here </p><br>'+
+                '<a> Browse </a>'+
+                '<input type="file" name="context['+field+']" id="context_'+field+'" accept="image/*" capture="camera" required="required" />'+
+              '</div><br>'+
+
+              '<div class="field" hidden>'+
+                '<input type="text" name="context[user_id]" value="'+ user_id +'" id="user_id" >'+
+              '</div>'+
+
+            '<input type="submit" name="commit" value="Save" class="btn btn-large btn-primary" >'+
+          '</form>'+
+        
+      '</div>'
+      );
+
+    $('#modal').modal('show');
+
+    $('#drop a').click(function(){
+        $(this).parent().find('input').click();
+    });
+
+    $('#context_'+field+'').on('change', function(e){
+
+      var tgt = e.target || window.event.srcElement;
+
+      $('#drop a, #drop p').hide();
+
+      $('#drop').append(
+        '<ul><li class="working">'+
+          '<input type="text" value="0" data-width="48" data-height="48"'+
+          'data-fgColor="#0788a5" data-readOnly="1" data-bgColor="#3e4043" />'+
+          '<p><i>'+ tgt.files[0].name+'</i></p>'+
+          '<span></span>'+
+        '</li></ul>'
+      );
+
+    });
+  }
+
+
 
   $('#about-description').on('blur', function(e){
 
@@ -45,11 +114,10 @@ jQuery(document).ready(function($) {
 
     if (contextId != false ) {
       var verb = "PUT";
-      var url = "/users/"+ user_id +"/contexts/"+contextId
+      var url = '/users/'+user_id+'/contexts/'+contextId+'';
     }else{
-      var ver = "POST"
-      var url = "/users/"+ user_id +"/contexts"
-
+      var ver = "POST";
+      var url = "/users/"+ user_id +"/contexts";
     }
     
     $.ajax({
@@ -57,11 +125,7 @@ jQuery(document).ready(function($) {
       url: url,
       data: { 
         context:{
-          // coverPicture: '/bg/bg-barriga.jpg', 
           aboutDescription: content, 
-          // aboutPicture: '', 
-          // aboutVideo: '', 
-          // parallaxPicture: '/bg/bg-beach.jpg', 
           user_id: user_id
         },
         commit: "Save",
@@ -70,11 +134,10 @@ jQuery(document).ready(function($) {
         user_id: user_id
       },
     }).done(function( data ) {
-      debugger
+      console.log(data);
     }).fail(function( jqXHR, textStatus ) {
-      jqXHR.responseText
       var response = jqXHR.responseText;
-      debugger
+      console.log(response);
     })
 
   });

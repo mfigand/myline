@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170826080137) do
+ActiveRecord::Schema.define(version: 20170830144258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,8 +23,20 @@ ActiveRecord::Schema.define(version: 20170826080137) do
     t.string   "coverPicture"
     t.string   "parallaxPicture"
     t.integer  "user_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "coverPicture_file_name"
+    t.string   "coverPicture_content_type"
+    t.integer  "coverPicture_file_size"
+    t.datetime "coverPicture_updated_at"
+    t.string   "aboutPicture_file_name"
+    t.string   "aboutPicture_content_type"
+    t.integer  "aboutPicture_file_size"
+    t.datetime "aboutPicture_updated_at"
+    t.string   "parallaxPicture_file_name"
+    t.string   "parallaxPicture_content_type"
+    t.integer  "parallaxPicture_file_size"
+    t.datetime "parallaxPicture_updated_at"
   end
 
   add_index "contexts", ["user_id"], name: "index_contexts_on_user_id", using: :btree
