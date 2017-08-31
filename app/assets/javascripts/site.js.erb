@@ -19,13 +19,17 @@ jQuery(document).ready(function($) {
     window.location.replace("/users/edit");
   });
 
+
   $("#header-wrapper").hover(startHover, endHover);
   $("#cover2").hover(startHover, endHover);
 
 
   function startHover() {
+    if ($('#update-cover').data('contextid') != false) {
       $('#update-cover').show();
       $('#update-parallaxPicture').show();
+    }
+          
   }
 
   function endHover() {
