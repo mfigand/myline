@@ -25,7 +25,8 @@ jQuery(document).ready(function($) {
 
 
   function startHover() {
-    if ($('#update-cover').data('contextid') != false) {
+    
+    if ($('#update-cover').data('contextid') != "not_signed_in_user") {
       $('#update-cover').show();
       $('#update-parallaxPicture').show();
     }
@@ -38,7 +39,9 @@ jQuery(document).ready(function($) {
   }
 
   $('#update-cover').on('click',function(e){
+    
       $('.modal-content').empty();
+
       updateCoverModal(e,$(this).data('contextid'),"coverPicture");
   });
 
