@@ -231,51 +231,79 @@ jQuery(document).ready(function($) {
       })
     })
 
+    localStorage.setItem("next", "0");
+
     return storiesToShow;
+  }
+
+  function appendStoriesGroup(matchingStories){
+    
+    var nextCounter = JSON.parse(localStorage.getItem("next"));
+    var lowerLimit = nextCounter * storyGroup;
+    var higherLimit = storyGroup * (nextCounter+1);
+    var firstStory = false;
+    var lastStory = false;
+
+    $.each(matchingStories, function(index, filteredStory){
+
+      if(index >= lowerLimit && index < higherLimit ){
+
+        $('.timeline-content-day').append(filteredStory)
+
+        if(index === 0){
+          firstStory = true;
+        }
+        else if(index === matchingStories.length-1){
+          lastStory = true;
+        }
+      }
+      
+    });
+
+    // Show Prev or/and Next button if necesary
+    firstStory === true ? $('#prev').hide() : $('#prev').show();
+
+    if (higherLimit < matchingStories.length && lastStory === false) {
+      $('.timeline-content-day').append('<button id="next" class="btn btn-theme corousel-btn next" >Next</button>');
+    };
+
   }
 
   //Reorder items
   function reorderItems(tagSelected, event=null, changeTagFilter=false){
 
-    var nextCounter;
-    var oldStories = $('.timeline-content-item, .allStories');
-    var firstStory = false;
-    var lastStory = false;
     localStorage.setItem("tagSelected", tagSelected);
+    var oldStories = $('.timeline-content-item, .allStories');
+    var matchingStories;
+    var storiesGroup;
+    
 
     $('#notFoundMessage').hide();
     $('#next').remove();
     oldStories.remove();
 
-    // Gel all stories with matching tags
-    var matchingStories = getMatchingStories(tagSelected);
+    if (changeTagFilter === true){
+      // Get all stories with matching tags
+      matchingStories = getMatchingStories(tagSelected);
 
-    //Order group of stories to show
-    changeTagFilter === true ? nextCounter = storyGroup : nextCounter = JSON.parse(localStorage.getItem("next"));
+      localStorage.setItem("matchingStories", JSON.stringify(matchingStories));
 
-    if (storiesToShow.length === 0) {
-      $('#notFoundMessage').show();
-      $('#prev').hide();
-    }else{
-      $.each(storiesToShow, function(index, filteredStory){
-        if(index >= (nextCounter-storyGroup) && index < nextCounter){
-          $('.timeline-content-day').append(filteredStory)
-          if(index === 0){
-            firstStory = true;
-          }
-          else if(index === storiesToShow.length-1){
-            lastStory = true;
-          }
-        }
-      });
+      if (matchingStories.length === 0){
+        $('#prev').hide();
+        $('#notFoundMessage').show();
+
+        return false
+
+      }else{
+        //Append corresponding stories group
+        appendStoriesGroup(matchingStories);
+      }
+
+    } else{
+      matchingStories = JSON.parse(localStorage.getItem("matchingStories"));
+      //Append corresponding stories group
+      appendStoriesGroup(matchingStories);
     }
-
-    // Show Prev or/and Next button if necesary
-    firstStory === true ? $('#prev').hide() : $('#prev').show();
-
-    if (nextCounter < storiesToShow.length && lastStory === false) {
-      $('.timeline-content-day').append('<button id="next" class="corousel-btn next" >Next</button>');
-    };
 
     addMouseEvent();
     addCorouselButtonEvent();
@@ -285,23 +313,17 @@ jQuery(document).ready(function($) {
 
   function addCorouselButtonEvent(){    
 
-    $(".corousel-btn").unbind().on("click", function(e,data){
-      var tagSelected;
+    $(".corousel-btn").unbind().on("click", function(e){
+      
       var nextCounter;
       var next = JSON.parse(localStorage.getItem("next"));
-
-      if (data){
-        tagSelected = data.tagSelected;
-        next = 0;
-      }else{
-        next < storyGroup ? next = storyGroup : next = next;
-      }
+      var tagSelected = localStorage.getItem("tagSelected");
       
       if(e.target.id === "next"){
-        nextCounter = next + storyGroup;
+        nextCounter = next + 1;
         localStorage.setItem("next", nextCounter);
       }else if(e.target.id === "prev"){
-        nextCounter = next - storyGroup;
+        nextCounter = next - 1;
         localStorage.setItem("next", nextCounter);
       }
       
