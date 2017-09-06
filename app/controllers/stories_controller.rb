@@ -17,7 +17,7 @@ class StoriesController < ApplicationController
 
     if @story.save
       flash[:notice] = "Story created succesfully"
-      render status: 200, json: @story.to_json
+      redirect_to '/users/'+story_params[:user_id]+'#line'
     else
       begin
         raise ArgumentError, @story.errors.messages
@@ -25,7 +25,7 @@ class StoriesController < ApplicationController
         puts "An error of type #{ex.class} happened, message is #{ex.message}"
         flash[:alert] = "ALERT Story not created because #{ex.message}"
       end
-      redirect_to user_path(story_params[:user_id])
+      redirect_to '/users/'+story_params[:user_id]+'#line'
     end
   end
 

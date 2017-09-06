@@ -44,7 +44,7 @@ jQuery(document).ready(function($) {
 
     $('.modal-content').append(
       '<div class="modal-body">'+
-        '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
+        '<div class="closeBtn"><button type="button" class="close" data-dismiss="my-new-modal"><span aria-hidden="true">&times;</span></button></div>'+
         '<div class="col-md-8 text-center"><b> Upload Image </b></div>'+
         '<form class="edit_user" id="edit_user_'+user_id+'" enctype="multipart/form-data" action="/users/'+user_id+'/stories" accept-charset="UTF-8" method="post">'+
           '<div class="field">'+
@@ -73,7 +73,7 @@ jQuery(document).ready(function($) {
       '</div>'
       );
 
-    $('#modal').modal('show');
+    $('#my-new-modal').modal('show');
     
     resizeModal();
 
@@ -178,10 +178,10 @@ jQuery(document).ready(function($) {
     var imgHeight = image[0].naturalHeight;
     var imgWidth = image[0].naturalWidth;
 
-    if (image.attr('data-imageTag').charAt(0) != "[") {
+    if (image.attr('data-imageTag').charAt(0) != "[" ) {
       tags = image.attr('data-imageTag');
     }
-    else {
+    else if (image.attr('data-imageTag').charAt(image.attr('data-imageTag').length-1) == "]"){
       JSON.parse(image.attr('data-imageTag')).map(function (currentValue, index, array){
         tags === "" ? tags = currentValue : tags = tags + ", " + currentValue;
       });
@@ -191,7 +191,7 @@ jQuery(document).ready(function($) {
     $('.modal-content').append(
       '<div class="modal-body" >'+
       '<div class="modalHeader" >'+
-        '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
+        '<div class="closeBtn"><button type="button" class="close" data-dismiss="my-new-modal"><span aria-hidden="true">&times;</span></button></div>'+
         '<div class="col-md-8 text-center"> <b>'+ title +'</b> </div><br>'+
       '</div>'+
         '<img src="'+ srcImage +'" alt="'+ title +'_my_line">'+
@@ -200,7 +200,7 @@ jQuery(document).ready(function($) {
         '<div class="col-md-8 text-justify"> <b>Tags:</b> '+ tags +'</div>'+
       '</div>'
     );
-    $('#modal').modal('show');
+    $('#my-new-modal').modal('show');
 
     resizeModal(imgHeight,imgWidth);
     
