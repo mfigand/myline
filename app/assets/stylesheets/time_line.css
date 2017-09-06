@@ -71,7 +71,7 @@
 }
 .timeline-wrapper .timeline-content-item {
   background: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
-  width: 6%;
+  width: 15%;
   display: inline-block;
   position: relative;
   height: 100%;
@@ -141,12 +141,12 @@
   margin-left: -75%;
   bottom: -30px;
   left: 0;
-  font-family: serif;
-  font-size: 20px;
+  font-family: monospace, serif;
+  font-size: 25px;
   font-style: italic;
   text-decoration: none;
   white-space: nowrap;
-  color: white;
+  color: #b9b6b6;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.5), 0 0 1px black;
 }
 .timeline-wrapper .timeline-content-item .timeline-content-item-reveal a span:after {
@@ -154,7 +154,7 @@
   margin-left: 5px;
 }
 .timeline-wrapper .timeline-content-item.active {
-  width: 10%;
+  width: 20%;
 }
 .timeline-wrapper .timeline-content-item.active .timeline-content-item-reveal {
   display: block;
