@@ -44,7 +44,7 @@ jQuery(document).ready(function($) {
 
     $('.modal-content').append(
       '<div class="modal-body">'+
-        '<div class="closeBtn"><button type="button" class="close" data-dismiss="my-new-modal"><span aria-hidden="true">&times;</span></button></div>'+
+        '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
         '<div class="col-md-8 text-center"><b> Upload Image </b></div>'+
         '<form class="edit_user" id="edit_user_'+user_id+'" enctype="multipart/form-data" action="/users/'+user_id+'/stories" accept-charset="UTF-8" method="post">'+
           '<div class="field">'+
@@ -191,10 +191,10 @@ jQuery(document).ready(function($) {
     $('.modal-content').append(
       '<div class="modal-body" >'+
       '<div class="modalHeader" >'+
-        '<div class="closeBtn"><button type="button" class="close" data-dismiss="my-new-modal"><span aria-hidden="true">&times;</span></button></div>'+
+        '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
         '<div class="col-md-8 text-center"> <b>'+ title +'</b> </div><br>'+
       '</div>'+
-        '<img src="'+ srcImage +'" alt="'+ title +'_my_line">'+
+        '<img class="modal-image" src="'+ srcImage +'" alt="'+ title +'_my_line">'+
       '</div>'+
       '<div class="modal-footer">'+
         '<div class="col-md-8 text-justify"> <b>Tags:</b> '+ tags +'</div>'+
@@ -202,26 +202,15 @@ jQuery(document).ready(function($) {
     );
     $('#my-new-modal').modal('show');
 
-    resizeModal(imgHeight,imgWidth);
+    // resizeModal(imgHeight,imgWidth);
     
   }
 
-  //Reorder items
-  function reorderItems(tagSelected, event=null, changeTagFilter=false){
+  function getMatchingStories(tagSelected){
 
-    var storiesMatch = []
-    var storiesToShow = []
-    var nextCounter;
     var allStories = JSON.parse(localStorage.getItem('allStories'));
-    var oldStories = $('.timeline-content-item, .allStories');
-    var firstStory = false;
-    var lastStory = false;
-    localStorage.setItem("tagSelected", tagSelected);
-
-    $('#notFoundMessage').hide();
-    $('#next').remove();
-    oldStories.remove();
-    changeTagFilter === true ? nextCounter = storyGroup : nextCounter = JSON.parse(localStorage.getItem("next"));
+    var storiesMatch = [];
+    var storiesToShow = [];
 
     $.each(allStories, function( index, story ) {
       $.each( story.tag, function( i, storyTag){
@@ -242,7 +231,27 @@ jQuery(document).ready(function($) {
       })
     })
 
-    firstStory === true ? $('#prev').hide() : $('#prev').show();
+    return storiesToShow;
+  }
+
+  //Reorder items
+  function reorderItems(tagSelected, event=null, changeTagFilter=false){
+
+    var nextCounter;
+    var oldStories = $('.timeline-content-item, .allStories');
+    var firstStory = false;
+    var lastStory = false;
+    localStorage.setItem("tagSelected", tagSelected);
+
+    $('#notFoundMessage').hide();
+    $('#next').remove();
+    oldStories.remove();
+
+    // Gel all stories with matching tags
+    var matchingStories = getMatchingStories(tagSelected);
+
+    //Order group of stories to show
+    changeTagFilter === true ? nextCounter = storyGroup : nextCounter = JSON.parse(localStorage.getItem("next"));
 
     if (storiesToShow.length === 0) {
       $('#notFoundMessage').show();
@@ -260,6 +269,9 @@ jQuery(document).ready(function($) {
         }
       });
     }
+
+    // Show Prev or/and Next button if necesary
+    firstStory === true ? $('#prev').hide() : $('#prev').show();
 
     if (nextCounter < storiesToShow.length && lastStory === false) {
       $('.timeline-content-day').append('<button id="next" class="corousel-btn next" >Next</button>');
