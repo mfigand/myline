@@ -17,6 +17,19 @@
   max-width: 100% !important;
 }
 
+.carousel-control{
+  background: none !important;
+  border: none !important;
+}
+
+.carousel-caption{
+  background: rgba(0, 0, 0, 0.6) !important;
+  color: #ffffff;
+}
+
+.carousel{
+  margin-bottom: 0px !important;
+}
 
 .justify {
   text-align: justify;

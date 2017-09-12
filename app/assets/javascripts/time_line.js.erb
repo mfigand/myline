@@ -1,5 +1,7 @@
 jQuery(document).ready(function($) {
 
+  var allStories = JSON.parse(localStorage.getItem('allStories'));
+
   $("#search_filter").live("keypress", function(e) {
     if (e.keyCode == 13) {
       $('#filters a').removeClass('active');
@@ -42,15 +44,20 @@ jQuery(document).ready(function($) {
     var user_id = pathname[pathname.length-1];
     var uploadedFiles = [];
     var tagValues = [];
+    var action = '/users/'+user_id+'/stories';
+    var form_id = 'edit_user_'+user_id;
+    var method = "post";
 
     $('.modal-content').append(
       '<div class="modal-body">'+
+
         '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
         '<div class="col-md-8 text-center"><b> Upload Image </b></div>'+
-        '<form class="edit_user" id="edit_user_'+user_id+'" enctype="multipart/form-data" action="/users/'+user_id+'/stories" accept-charset="UTF-8" method="post">'+
+
+        '<form class="edit_user" id='+form_id+' enctype="multipart/form-data" action='+action+' accept-charset="UTF-8" method='+method+'>'+
           '<div class="field">'+
             '<label for="name">Name</label>'+
-            '<input size="10" required="required" type="text" value="" name="story[name]" id="story_name">'+
+            '<input size="10" required="required" type="text" name="story[name]" id="story_name">'+
           '</div>'+
           '<div class="field">'+
             '<label for="date">Date</label>'+
@@ -71,12 +78,13 @@ jQuery(document).ready(function($) {
           '</div>'+
           '<input type="submit" name="commit" value="Save" id="submitBtn" >'+
         '</form>'+
-      '</div>'
-      );
 
-    $('#my-new-modal').modal('show');
-    
-    resizeModal();
+      '</div>'
+    );
+
+    $('.modal').modal('show');
+   
+    // resizeModal();
 
     $(window).keydown(function(event){
     if( event.keyCode == 13 && event.target.id != "story_tag" ) {
@@ -86,6 +94,7 @@ jQuery(document).ready(function($) {
   });
 
     $("form input[type=submit]").click(function() {
+      //Prepare tags
       var tags = "";
       $.each(tagValues,function(index,tag){
         tag != "" ? tags += tag + ";" : false;
@@ -93,6 +102,11 @@ jQuery(document).ready(function($) {
       $('#story_tag').val(tags);
       $("input[type=submit]", $(this).parents("form")).removeAttr("clicked");
       $(this).attr("clicked", "true");
+
+      //Add new story to already load stories
+
+
+
     });
 
     function createTags(event){
@@ -178,6 +192,7 @@ jQuery(document).ready(function($) {
     var tags = "";
     var imgHeight = image[0].naturalHeight;
     var imgWidth = image[0].naturalWidth;
+    var storyId = image.attr('data-storyId');
 
     if (image.attr('data-imageTag').charAt(0) != "[" ) {
       tags = image.attr('data-imageTag');
@@ -188,20 +203,51 @@ jQuery(document).ready(function($) {
       });
     };
 
-    $('.modal').addClass('imgModal');
+    // $('#carousel-modal').addClass('imgModal');
+
     $('.modal-content').append(
-      '<div class="modal-body" >'+
-      '<div class="modalHeader" >'+
-        '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
-        '<div class="col-md-8 text-center"> <b>'+ title +'</b> </div><br>'+
+      '<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">'+
+        '<!-- Wrapper for slides -->'+
+        '<div class="carousel-inner">'+
+
+        '</div>'+
       '</div>'+
-        '<img class="modal-image" src="'+ srcImage +'" alt="'+ title +'_my_line">'+
-      '</div>'+
-      '<div class="modal-footer">'+
-        '<div class="col-md-8 text-justify"> <b>Tags:</b> '+ tags +'</div>'+
-      '</div>'
+
+      '<!-- Controls -->'+
+        '<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">'+
+          '<i class="icon-angle-left icon-2x"></i>'+
+        '</a>'+
+        '<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">'+
+          '<i class="icon-angle-right icon-2x"></i>'+
+        '</a>'
     );
-    $('#my-new-modal').modal('show');
+
+    $.each(allStories, function( index, story ) {
+
+      var tags = "";
+
+      $.each(story.tag, function( i, tag){
+        i == 0 ? tags = tag : tags+=", "+tag;
+      })
+
+      $('.carousel-inner').append(
+        '<div class="item" id='+"story_"+story.id+' >'+
+         '<img class="img-responsive" src='+ story.image+'alt='+story.name+' >'+
+          '<div class="carousel-caption">'+
+            '<span class="pull-left"> '+story.name+' </span>'+
+            '<span class="pull-right">Tags: '+ tags +'. </span>'+
+            
+          '</div>'+
+        '</div>'
+      )
+      
+    })
+
+    $('#'+storyId+'').addClass('active');
+
+    $('.carousel').carousel('pause');
+
+    $('#carousel-modal').modal('show');
 
     // resizeModal(imgHeight,imgWidth);
     
@@ -209,7 +255,7 @@ jQuery(document).ready(function($) {
 
   function getMatchingStories(tagSelected){
 
-    var allStories = JSON.parse(localStorage.getItem('allStories'));
+    // var allStories = JSON.parse(localStorage.getItem('allStories'));
     var storiesMatch = [];
     var storiesToShow = [];
 
@@ -222,7 +268,7 @@ jQuery(document).ready(function($) {
               '<span>'+ story.date +'</span>'+
               '<div class="timeline-content-item-reveal">'+
                 '<a class="pop">'+
-                  '<img src='+ story.image +' alt="'+ story.name +'" data-imageTag='+ story.tag +' >'+
+                  '<img src='+ story.image +' alt="'+ story.name +'" data-imageTag='+ story.tag +' data-storyId='+"story_"+story.id+'  >'+
                   '<span>'+ story.name +'</span>'+
                 '</a>'+
               '</div>'+
@@ -342,9 +388,8 @@ jQuery(document).ready(function($) {
 
     $('.pop, .uploadImage').unbind().on('click', function() {
 
-      $('.modal-content').empty();
-
       // $('.modal').removeClass('imgModal');
+      $('.modal-content').empty();
 
       switch ($(this).attr('class').split(" ")[0]) {
         case "pop":

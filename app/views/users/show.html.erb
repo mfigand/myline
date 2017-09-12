@@ -121,7 +121,7 @@
                       <span><%= story.date.strftime("%Y %b %d") %></span>
                       <div class="timeline-content-item-reveal">
                           <a class="pop" >
-                              <img src=<%= (story.image || story.avatar.url) %> alt=<%= "#{story.name}" %> data-imageTag=<%= story.tag.to_json %>>
+                              <img src=<%= (story.image || story.avatar.url) %> alt=<%= "#{story.name}" %> data-imageTag=<%= story.tag.to_json %> data-storyId=<%= "story_"+story.id.to_s %>>
                               <span><%= story.name %></span>
                           </a>
                       </div>
@@ -263,9 +263,40 @@
   </div>
 </section> -->
 
-<div class="modal fade" id="my-new-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+
+<div class="modal fade bs-example-modal-lg" id="carousel-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
+
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+
+          <% @user.stories.order('date ASC').each_with_index do | story, index| %>
+            <div class="item" id=<%= "story_"+story.id.to_s %> >
+
+             <img class="img-responsive" src=<%= story.avatar.url %> alt=<%= story.name.html_safe %> >
+              <div class="carousel-caption">
+                <span class="pull-left"> <%= story.name.html_safe %> </span>
+                <span class="pull-right">Tags: <%= story.tag.to_s.tr('[""]', '').html_safe %>. </span>
+                
+              </div>
+
+            </div>
+           
+          <% end %>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+
+      </div>
+
     </div>
   </div>
 </div>
