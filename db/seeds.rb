@@ -107,16 +107,12 @@ stories = Story.create([
     ])
 
 contexts = Context.create([{
-    coverPicture: '/bg/bg-barriga.JPG', 
-    aboutDescription: 'Hola Lucía, tus padres hemos creado este espacio para ti, en donde la gente que te quiere podrá guardar cosas y enviarte mensajes que pensamos te gustarán ver cuando seas mayor.
-
-    Creemos que esta pequeña cápsula de tiempo te ayudará a entender de dónde vienes, el porqué la locura de tus padres y lo más importante que has estado rodeada de cariño desde el día que naciste.
-
-    Esperamos te guste.', 
-    aboutPicture: '/icons/creativity.png', 
-    aboutVideo: 'https://www.youtube.com/watch?v=ubdWitOk6zQ', 
-    parallaxPicture: '/bg/bg-beach.jpg', 
-    user_id: 1 
+    coverPicture: "",
+    aboutDescription: "Hola Lucía, tus padres hemos creado este espacio para ti, en donde la gente que te quiere podrá guardar cosas y enviarte mensajes que pensamos te gustarán ver cuando seas mayor.\n\n\n\nCreemos que esta pequeña cápsula de tiempo te ayudará a entender de dónde vienes, el por qué la locura de tus padres y lo más importante que has estado rodeada de cariño desde el día que naciste.\n\n\n\nEsperamos te guste.\n\n",
+    aboutPicture: "",
+    aboutVideo: 'https://www.youtube.com/watch?v=ubdWitOk6zQ',
+    parallaxPicture: "",
+    user_id: 1
     }])
 
 # tellers = Teller.create([{ name: 'Irene', title: 'Mamá', avatar: '/team/img-1.jpg', user_id: 1},
