@@ -61,7 +61,7 @@ class UsersController < ApplicationController
         story.save
       end
     }
-    render json: @allStories 
+    render json: @allStories
   end
 
   def profile

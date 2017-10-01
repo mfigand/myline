@@ -11,6 +11,7 @@ class StoriesController < ApplicationController
   end
 
   def create
+    binding.pry
     @story = Story.new story_params
     @story.tag = story_params[:tag].split(' ;')
     @story.teller_id = current_user.id

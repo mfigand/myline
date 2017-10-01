@@ -2,7 +2,9 @@
 
 Need to configure yout database.yml according to the new name project:
 
-* Ruby version
+* Ruby version 2.2.3
+
+* Rails 4.2.5.1
 
 * System dependencies
 

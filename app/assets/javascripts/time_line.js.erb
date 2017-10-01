@@ -48,42 +48,42 @@ jQuery(document).ready(function($) {
     var form_id = 'edit_user_'+user_id;
     var method = "post";
 
-    $('.modal-content').append(
-      '<div class="modal-body">'+
+    // $('#uploader-modal .modal-content').append(
+      // '<div class="modal-body">'+
+      //
+      //   '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
+      //   '<div class="col-md-8 text-center"><b> Upload Image </b></div>'+
+      //
+      //   '<form class="edit_user" id='+form_id+' enctype="multipart/form-data" action='+action+' accept-charset="UTF-8" method='+method+'>'+
+      //     '<div class="field">'+
+      //       '<label for="name">Name</label>'+
+      //       '<input size="10" required="required" type="text" name="story[name]" id="story_name">'+
+      //     '</div>'+
+      //     '<div class="field">'+
+      //       '<label for="date">Date</label>'+
+      //       '<input size="10" required="required" type="date" value="" name="story[date]" id="story_date">'+
+      //     '</div>'+
+      //     '<div id="drop" draggable="true">'+
+      //       '<p> Drop Here </p><br>'+
+      //       '<a> Browse </a>'+
+      //       '<input type="file" name="story[avatar]" id="story_avatar" accept="image/*" capture="camera" required="required" />'+
+      //     '</div><br>'+
+      //     '<div class="field" id="tagContainer">'+
+      //       '<label for="tag">Tags</label>'+
+      //       '<input size="10" type="text" name="story[tag]" id="story_tag" required="required" >'+
+      //     '</div><br>'+
+      //     '<div class="field" hidden>'+
+      //       '<label for="user_id">Teller</label>'+
+      //       '<input type="text" name="story[user_id]" value="'+ user_id +'" id="user_id" required="required" >'+
+      //     '</div>'+
+      //     '<input type="button" name="commit" value="Save" id="submitBtn" >'+
+      //   '</form>'+
+      //
+      // '</div>'
+    // );
 
-        '<div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>'+
-        '<div class="col-md-8 text-center"><b> Upload Image </b></div>'+
+    $('#uploader-modal').modal('show');
 
-        '<form class="edit_user" id='+form_id+' enctype="multipart/form-data" action='+action+' accept-charset="UTF-8" method='+method+'>'+
-          '<div class="field">'+
-            '<label for="name">Name</label>'+
-            '<input size="10" required="required" type="text" name="story[name]" id="story_name">'+
-          '</div>'+
-          '<div class="field">'+
-            '<label for="date">Date</label>'+
-            '<input size="10" required="required" type="date" value="" name="story[date]" id="story_date">'+
-          '</div>'+
-          '<div id="drop" draggable="true">'+
-            '<p> Drop Here </p><br>'+
-            '<a> Browse </a>'+
-            '<input type="file" name="story[avatar]" id="story_avatar" accept="image/*" capture="camera" required="required" />'+
-          '</div><br>'+
-          '<div class="field" id="tagContainer">'+
-            '<label for="tag">Tags</label>'+
-            '<input size="10" type="text" name="story[tag]" id="story_tag" required="required" >'+
-          '</div><br>'+
-          '<div class="field" hidden>'+
-            '<label for="user_id">Teller</label>'+
-            '<input type="text" name="story[user_id]" value="'+ user_id +'" id="user_id" required="required" >'+
-          '</div>'+
-          '<input type="submit" name="commit" value="Save" id="submitBtn" >'+
-        '</form>'+
-
-      '</div>'
-    );
-
-    $('.modal').modal('show');
-   
     // resizeModal();
 
     $(window).keydown(function(event){
@@ -100,19 +100,46 @@ jQuery(document).ready(function($) {
         tag != "" ? tags += tag + ";" : false;
       })
       $('#story_tag').val(tags);
-      $("input[type=submit]", $(this).parents("form")).removeAttr("clicked");
-      $(this).attr("clicked", "true");
 
-      //Add new story to already load stories
-
-
+      // var data = {
+      //   name : $('#story_name').val(),
+      //   date : $('#story_date').val() || fileDate.getFullYear()+"-"+(fileDate.getMonth()+1)+"-"+fileDate.getDay(),
+      //   avatar : $('#story_avatar')[0].files,
+      //   // avatar : JSON.stringify($('#story_avatar')[0].files[0]),
+      //   // avatar : "hola",
+      //   tag : $('#story_tag').val(),
+      //   user_id : user_id,
+      //   commit : "Save"
+      // }
+      //
+      // var request = $.post( action, {
+      //    method: "POST",
+      //     connection: "keep-alive",
+      //     pragma: "no-cache",
+      //     cache: false,
+      //     processData: false,
+      //     headers: {"Authorization": window._token, "method": "POST", "X-HTTP-Method-Override":"GET"},
+      //     contentType: "application/x-www-form-urlencoded",
+      //     contentType: "application/json; charset=utf-8",
+      //     dataType: "json",
+      //     story: data
+      //  });
+      //
+      // request.done(function( msg ) {
+      //   debugger
+      // });
+      //
+      // request.fail(function( jqXHR, textStatus ) {
+      //   debugger
+      //   console.log( "Status: " + textStatus + "Response: " + jqXHR.responseText );
+      // });
 
     });
 
     function createTags(event){
       var $element = $(event.target);
       var val = $element.val().replace('"', '\\"');
-      
+
       if (val.replace(/\s/g, '').length != 0) {
 
         $('#story_tag').val('')
@@ -127,7 +154,7 @@ jQuery(document).ready(function($) {
 
         $('.closeTag').on('click',function(event){
           var tagToDelete = event.currentTarget.previousElementSibling.innerText.replace(/\s/g, '');
-          
+
           $.each(tagValues,function(index,tag){
             if(tagToDelete === tag.replace(/\s/g, '')){
               tagValues[index] = "";
@@ -140,10 +167,10 @@ jQuery(document).ready(function($) {
 
         $.each($(".tag strong"), function( index, tag ) { tagValues.push(tag.innerText) });
       }
-    
+
       event.preventDefault();
       return false;
-      
+
     }
 
     $('#story_tag').on('keypress', function(event) {
@@ -155,16 +182,15 @@ jQuery(document).ready(function($) {
     $('#story_tag').focusout(function(event) {
       createTags(event);
     });
-  
 
-    $('#drop a').click(function(){
+
+    // $('#drop a').click(function(){
         // Simulate a click on the file input button
         // to show the file browser dialog
-        $(this).parent().find('input').click();
-    });
+        // $(this).parent().find('input').click();
+    // });
 
     $('#story_avatar').on('change', function(e){
-
       var tgt = e.target || window.event.srcElement;
 
       uploadedFiles.push(tgt.files[0]);
@@ -179,6 +205,24 @@ jQuery(document).ready(function($) {
           '<span></span>'+
         '</li></ul>'
       );
+
+      //Parse date
+      var fileDate = $('#story_avatar')[0].files[0].lastModifiedDate;
+      var year = fileDate.getFullYear();
+      var month = ('' + (fileDate.getMonth() + 1)).length < 2 ? '0' + (fileDate.getMonth() + 1) : '' + (fileDate.getMonth() + 1);
+      var day = ('' + fileDate.getDate()).length < 2 ? '0' + fileDate.getDate() : '' + fileDate.getDate();
+      var date = [year, month, day].join('-');
+
+      $('#story_date').val(date);
+
+      //Parse title
+      var fileType = $('#story_avatar')[0].files[0].type;
+      fileType = fileType.split('/')[fileType.split('/').length-1];
+
+      var fileTitle = $('#story_avatar')[0].files[0].name;
+      fileTitle = fileTitle.substring(0, fileTitle.indexOf(fileType));
+
+      $('#story_name').val(fileTitle);
 
     });
     return false;
@@ -204,8 +248,9 @@ jQuery(document).ready(function($) {
     };
 
     // $('#carousel-modal').addClass('imgModal');
+    $('#carousel-modal .modal-content').empty();
 
-    $('.modal-content').append(
+    $('#carousel-modal .modal-content').append(
       '<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">'+
         '<!-- Wrapper for slides -->'+
         '<div class="carousel-inner">'+
@@ -236,11 +281,11 @@ jQuery(document).ready(function($) {
           '<div class="carousel-caption">'+
             '<span class="pull-left"> '+story.name+' </span>'+
             '<span class="pull-right">Tags: '+ tags +'. </span>'+
-            
+
           '</div>'+
         '</div>'
       )
-      
+
     })
 
     $('#'+storyId+'').addClass('active');
@@ -250,11 +295,9 @@ jQuery(document).ready(function($) {
     $('#carousel-modal').modal('show');
 
     // resizeModal(imgHeight,imgWidth);
-    
   }
 
   function getMatchingStories(tagSelected){
-
     // var allStories = JSON.parse(localStorage.getItem('allStories'));
     var storiesMatch = [];
     var storiesToShow = [];
@@ -284,7 +327,6 @@ jQuery(document).ready(function($) {
   }
 
   function appendStoriesGroup(matchingStories){
-    
     var nextCounter = JSON.parse(localStorage.getItem("next"));
     var lowerLimit = nextCounter * storyGroup;
     var higherLimit = storyGroup * (nextCounter+1);
@@ -304,7 +346,7 @@ jQuery(document).ready(function($) {
           lastStory = true;
         }
       }
-      
+
     });
 
     // Show Prev or/and Next button if necesary
@@ -318,12 +360,11 @@ jQuery(document).ready(function($) {
 
   //Reorder items
   function reorderItems(tagSelected, event=null, changeTagFilter=false){
-
     localStorage.setItem("tagSelected", tagSelected);
     var oldStories = $('.timeline-content-item, .allStories');
     var matchingStories;
     var storiesGroup;
-    
+
 
     $('#notFoundMessage').hide();
     $('#next').remove();
@@ -358,14 +399,12 @@ jQuery(document).ready(function($) {
   }
 
 
-  function addCorouselButtonEvent(){    
-
+  function addCorouselButtonEvent(){
     $(".corousel-btn").unbind().on("click", function(e){
-      
       var nextCounter;
       var next = JSON.parse(localStorage.getItem("next"));
       var tagSelected = localStorage.getItem("tagSelected");
-      
+
       if(e.target.id === "next"){
         nextCounter = next + 1;
         localStorage.setItem("next", nextCounter);
@@ -373,7 +412,7 @@ jQuery(document).ready(function($) {
         nextCounter = next - 1;
         localStorage.setItem("next", nextCounter);
       }
-      
+
       tagSelected != undefined ? reorderItems(tagSelected,e) : reorderItems("*",e);
     });
 
@@ -387,10 +426,7 @@ jQuery(document).ready(function($) {
     });
 
     $('.pop, .uploadImage').unbind().on('click', function() {
-
       // $('.modal').removeClass('imgModal');
-      $('.modal-content').empty();
-
       switch ($(this).attr('class').split(" ")[0]) {
         case "pop":
           imageModal($(this));

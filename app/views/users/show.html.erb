@@ -106,16 +106,16 @@
         <div id="notFoundMessage" class="alert alert-danger" hidden>
           <strong>Sorry!</strong> There are no stories under this Tag.
         </div>
-        
+
       </div>
       <!-- END PORTFOLIO FILTERING -->
     </div>
-      <div class="span12">   
+      <div class="span12">
         <div class="timeline-wrapper clearfix">
-            <div class="timeline-content-day">  
+            <div class="timeline-content-day">
                 <div class="timeline-line"></div>
                 <button id="prev" class="btn btn-theme corousel-btn prev" style="display: none;" >Prev</button>
-                <% @user.stories.order("RANDOM()").limit(5).each_with_index do | story, index| %>
+                <% @user.stories.order('date DESC').limit(5).each_with_index do | story, index| %>
                   <!-- portfolio item -->
                   <div class="timeline-content-item" data-timeline="hour-8">
                       <span><%= story.date.strftime("%Y %b %d") %></span>
@@ -142,14 +142,14 @@
     background: url(<%= @user.context.parallaxPicture.url %>) 50% 0 no-repeat fixed !important;
     width:100% !important;
     height:auto !important;
-    margin:0 !important; 
+    margin:0 !important;
   }
 <% else %>
   section.spacer.bg3 {
     background: url(/bg/bg-3.jpg) 50% 0 no-repeat fixed;
     width:100%;
     height:auto;
-    margin:0; 
+    margin:0;
   }
 <% end %>
 </style>
@@ -264,7 +264,7 @@
 </section> -->
 
 
-<div class="modal fade bs-example-modal-lg" id="carousel-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-lg" id="carousel-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" hidden>
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
@@ -279,11 +279,11 @@
               <div class="carousel-caption">
                 <span class="pull-left"> <%= story.name.html_safe %> </span>
                 <span class="pull-right">Tags: <%= story.tag.to_s.tr('[""]', '').html_safe %>. </span>
-                
+
               </div>
 
             </div>
-           
+
           <% end %>
         </div>
 
@@ -301,4 +301,51 @@
   </div>
 </div>
 
+<div class="modal fade bs-example-modal-lg" id="uploader-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" hidden>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
 
+        <div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>
+        <div class="col-md-8 text-center"><b> Upload Image </b></div>
+        <br>
+
+        <%= form_for [current_user,Story.new] do |f| %>
+          <div class="field" id="drop" draggable="true">
+            <p> Drop Here </p><br>
+            <a> Browse </a>
+            <%= f.label :file %><br />
+            <%= f.file_field :avatar, required:'' %>
+          </div>
+
+          <div class="field">
+            <%= f.label :name %><br />
+            <%= f.text_field :name, autofocus: true, required:'', size:"20" %>
+          </div>
+
+          <div class="field" >
+            <%= f.label :date %><br />
+            <%= f.date_field :date, size:"20", required:'' %>
+          </div>
+
+          <div class="field" id="tagContainer">
+            <div class="field">
+              <%= f.label :tag %><br />
+              <%= f.text_field :tag, size:"20", required:'' %>
+            </div>
+          </div>
+          <br>
+
+          <div class="field" hidden>
+            <%= f.label :user_id %><br />
+            <%= f.text_field :user_id, :value => current_user.id, size:"20" %>
+          </div>
+
+
+          <%= f.submit %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
