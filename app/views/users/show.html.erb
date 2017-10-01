@@ -115,7 +115,7 @@
             <div class="timeline-content-day">
                 <div class="timeline-line"></div>
                 <button id="prev" class="btn btn-theme corousel-btn prev" style="display: none;" >Prev</button>
-                <% @user.stories.order('date DESC').limit(5).each_with_index do | story, index| %>
+                <% @user.stories.order('date ASC').limit(5).each_with_index do | story, index| %>
                   <!-- portfolio item -->
                   <div class="timeline-content-item" data-timeline="hour-8">
                       <span><%= story.date.strftime("%Y %b %d") %></span>
@@ -268,9 +268,9 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
-      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <!-- <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"> -->
         <!-- Wrapper for slides -->
-        <div class="carousel-inner">
+        <!-- <div class="carousel-inner">
 
           <% @user.stories.order('date ASC').each_with_index do | story, index| %>
             <div class="item" id=<%= "story_"+story.id.to_s %> >
@@ -279,21 +279,20 @@
               <div class="carousel-caption">
                 <span class="pull-left"> <%= story.name.html_safe %> </span>
                 <span class="pull-right">Tags: <%= story.tag.to_s.tr('[""]', '').html_safe %>. </span>
-
               </div>
 
             </div>
 
           <% end %>
-        </div>
+        </div> -->
 
         <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
+        <!-- <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+          <i class="icon-angle-left icon-2x"></i>
         </a>
         <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
+          <i class="icon-angle-right icon-2x"></i>
+        </a> -->
 
       </div>
 

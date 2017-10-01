@@ -28,7 +28,7 @@
               <% else %>
                 <div id="avatar" data-imageSrc='' hidden></div>
               <% end %>
-              
+
             </li>
             <li>
               <h1 class="brand">
@@ -41,7 +41,7 @@
             </li>
           </ul>
           </nav>
-            
+
           <nav class="pull-right nav-collapse collapse">
           <ul id="menu-main" class="nav">
             <li><a title="team" href="#about">About</a></li>
@@ -178,9 +178,7 @@
   <a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
 
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <% if user_signed_in? %>
-    <script> getAllStories(); </script>
-  <% end %>
-  
+
+
 </body>
 </html>

@@ -3,9 +3,9 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   # check_authorization :unless => :devise_controller?
   # Can Can Can validations
-  skip_before_filter :verify_authenticity_token, :only => [:index, :show]
+  # skip_before_filter :verify_authenticity_token, :only => [:index, :show]
   check_authorization :unless => :do_not_check_authorization?
-  
+
   def after_sign_in_path_for(resource)
     if user_signed_in?
       user_path(current_user.id)

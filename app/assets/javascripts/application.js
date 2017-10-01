@@ -18,22 +18,3 @@ window.onload = function() {
   localStorage.removeItem("tagSelected");
   localStorage.setItem("next", 0);
 };
-
-function getAllStories() {
-  var url = window.location.pathname;
-  var user_id = url.substring(url.lastIndexOf('/') + 1);
-
-  return $.ajax({
-    type: "GET",
-    url: '/users/' + user_id + '/json_stories',
-    contentType: 'application/x-www-form-urlencoded',
-    headers: {"X-HTTP-Method-Override": "GET"},
-    cacheControl: true,
-    success: function (response, textStatus, errorThrown) {
-      localStorage.setItem('allStories', JSON.stringify(response));
-    },
-    error: function (response, textStatus, errorThrown) {
-        console.log('Ocurrió el siguiente error:' + errorThrown);
-    }
-  });
-}
