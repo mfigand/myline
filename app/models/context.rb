@@ -17,7 +17,7 @@ class Context < ActiveRecord::Base
    xsmall: "150x150>",
    thumb: "100x100>",
    original: "1024x1024"},
-   default_url: '/icons/rocket.png'
+   default_url: '/bg/bg-6.jpg'
   validates_attachment_content_type :coverPicture, content_type: /\Aimage\/.*\Z/
 
   has_attached_file :aboutPicture, styles: {
@@ -26,7 +26,7 @@ class Context < ActiveRecord::Base
    xsmall: "150x150>",
    thumb: "100x100>",
    original: "1024x1024"},
-   default_url: '/icons/rocket.png'
+   default_url: '/bg/bg-4.jpg'
   validates_attachment_content_type :aboutPicture, content_type: /\Aimage\/.*\Z/
 
   has_attached_file :parallaxPicture, styles: {
@@ -35,9 +35,9 @@ class Context < ActiveRecord::Base
    xsmall: "150x150>",
    thumb: "100x100>",
    original: "1024x1024"},
-   default_url: '/icons/rocket.png'
+   default_url: '/bg/bg-5.jpg'
   validates_attachment_content_type :parallaxPicture, content_type: /\Aimage\/.*\Z/
 
-  belongs_to :user 
+  belongs_to :user
 
 end

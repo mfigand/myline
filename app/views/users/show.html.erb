@@ -139,17 +139,19 @@
 <style>
 <% if @user.context && @user.context.parallaxPicture != nil %>
   section.spacer.bg3 {
-    background: url(<%= @user.context.parallaxPicture.url %>) 50% 0 no-repeat fixed !important;
-    width:100% !important;
-    height:auto !important;
-    margin:0 !important;
+    background: #444 url(<%= @user.context.parallaxPicture.url %>) no-repeat center center fixed;
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
   }
 <% else %>
   section.spacer.bg3 {
-    background: url(/bg/bg-3.jpg) 50% 0 no-repeat fixed;
-    width:100%;
-    height:auto;
-    margin:0;
+    background: #444 url('/bg/bg-5.jpg') no-repeat center center fixed;
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
   }
 <% end %>
 </style>

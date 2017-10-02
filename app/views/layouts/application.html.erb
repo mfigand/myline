@@ -62,15 +62,15 @@
   </div>
   <!-- Header area -->
   <% if user_signed_in? && current_user.context %>
-    <div id="header-wrapper" class="header-slider" data-imageSrc=<%= current_user.context.coverPicture != nil ? current_user.context.coverPicture.url : '/bg/bg-2.jpg' %> >
+    <div id="header-wrapper" class="header-slider" data-imageSrc=<%= current_user.context.coverPicture != nil ? current_user.context.coverPicture.url : '/bg/bg-6.jpg' %> >
       <header class="clearfix">
       <button id="update-cover" class="pull-left" data-contextid=<%= current_user.context.id %> hidden>Update Cover</button><br>
   <% elsif user_signed_in? %>
-    <div id="header-wrapper" class="header-slider" data-imageSrc='/bg/bg-2.jpg' >
+    <div id="header-wrapper" class="header-slider" data-imageSrc='/bg/bg-6.jpg' >
       <header class="clearfix">
       <button id="update-cover" class="pull-left" data-contextid=<%= false %> hidden>Update Cover</button><br>
   <% else %>
-    <div id="header-wrapper" class="header-slider" data-imageSrc='/bg/bg-1.jpg' >
+    <div id="header-wrapper" class="header-slider" data-imageSrc='/bg/bg-6.jpg' >
       <header class="clearfix">
       <button id="update-cover" class="pull-left" data-contextid='not_signed_in_user' hidden>Update Cover</button><br>
   <% end %>
