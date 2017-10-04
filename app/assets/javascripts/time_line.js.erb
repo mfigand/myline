@@ -30,6 +30,22 @@ jQuery(document).ready(function($) {
         }
       });
     }
+    else {
+      var sample_stories = [
+        {"id":1,"name":"Week 12+1","tag":["first"],"date":"2016-10-02","image":"/line/Week_12+1.jpg","teller_id":2,"user_id":1},
+        {"id":2,"name":"First smile","tag":["first","smiles"],"date":"2016-12-02","image":"/line/First_smile.jpg","teller_id":2,"user_id":1},
+        {"id":3,"name":"Snail custom","tag":["custom"],"date":"2017-02-02","image":"/line/Snail_custom.jpg","teller_id":2,"user_id":1},
+        {"id":4,"name":"Holiday","tag":["family","custom"],"date":"2017-05-02","image":"/line/Holiday.jpeg","teller_id":2,"user_id":1},
+        {"id":5,"name":"Family","tag":["family","activity"],"date":"2017-08-02","image":"/line/Family.jpeg","teller_id":2,"user_id":1},
+        {"id":6,"name":"Beach trip","tag":["trip","activity"],"date":"2017-10-02","image":"/line/Beach_trip.jpeg","teller_id":2,"user_id":1},
+        {"id":7,"name":"Cuddle","tag":["family"],"date":"2018-01-02","image":"/line/Cuddle.jpg","teller_id":2,"user_id":1},
+        {"id":8,"name":"Dinosaur","tag":["custom"],"date":"2018-03-02","image":"/line/Dinosaur.jpg","teller_id":2,"user_id":1},
+        {"id":9,"name":"Road trip","tag":["trip","smiles"],"date":"2018-05-02","image":"/line/Road_trip.jpeg","teller_id":2,"user_id":1},
+        {"id":10,"name":"Mariachi","tag":["custom"],"date":"2018-08-02","image":"/line/Mariachi.jpeg","teller_id":2,"user_id":1}
+      ];
+
+      localStorage.setItem('allStories', JSON.stringify(sample_stories));
+    }
   };
 
   function resizeModal(imgHeight,imgWidth){
@@ -297,7 +313,7 @@ jQuery(document).ready(function($) {
 
       $('.carousel-inner').append(
         '<div class="item" id='+"story_"+story.id+' >'+
-         '<img class="img-responsive" src='+ story.image+'alt='+story.name+' >'+
+         '<img class="img-responsive" src='+ story.image +' alt='+story.name+' >'+
           '<div class="carousel-caption">'+
             '<span class="pull-left"> '+story.name+' </span>'+
             '<span class="pull-right">Tags: '+ tags +'. </span>'+

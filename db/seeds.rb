@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 users = User.create([
-    {name: 'Manuel', email: 'manuel@gmail.com', password: '12345678', avatar_file_name: "story _1.jpeg", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now - 12.month).to_s},
+    {name: 'Manuel', email: 'manuel@gmail.com', password: '12345678', avatar_file_name: "/icons/laptop.png", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now - 12.month).to_s},
     {name: 'Irene', email: 'irene@gmail.com', password: '12345678', avatar_file_name: "story _1.jpeg", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now - 12.month).to_s},
     {name: 'Abuelo', email: 'abuelo@gmail.com', password: '12345678', avatar_file_name: "story _1.jpeg", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now - 12.month).to_s},
     {name: 'Abuela', email: 'abuela@gmail.com', password: '12345678', avatar_file_name: "story _1.jpeg", avatar_content_type: "image/jpeg", avatar_file_size: 170414,avatar_updated_at: (DateTime.now - 12.month).to_s},

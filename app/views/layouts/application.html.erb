@@ -24,7 +24,7 @@
           <ul class="nav">
             <li>
               <% if user_signed_in? %>
-                <div id="avatar" data-imageSrc=<%= current_user.avatar.url %> hidden></div>
+                <div id="avatar" data-imageSrc=<%=  current_user.avatar.url %> hidden></div>
               <% else %>
                 <div id="avatar" data-imageSrc='' hidden></div>
               <% end %>
@@ -84,17 +84,17 @@
             <ul class="slides">
               <li>
               <p class="home-slide-content">
-                The real <strong>time travel</strong>
-              </p>
-              </li>
-              <li>
-              <p class="home-slide-content">
                 While you were <strong>out</strong>
               </p>
               </li>
               <li>
               <p class="home-slide-content">
                 Send <strong>messages</strong> through time
+              </p>
+              </li>
+              <li>
+              <p class="home-slide-content">
+                <strong>Yes,</strong> this really happend
               </p>
               </li>
             </ul>
@@ -178,6 +178,16 @@
   <a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
 
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  <div class="modal fade bs-example-modal-lg" id="carousel-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" hidden>
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+      </div>
+
+      </div>
+    </div>
+  </div>
 
 
 </body>
