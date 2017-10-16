@@ -68,9 +68,8 @@ ActiveRecord::Schema.define(version: 20170830144258) do
   add_index "stories", ["user_id"], name: "index_stories_on_user_id", using: :btree
 
   create_table "tellers", force: :cascade do |t|
-    t.string  "name"
+    t.integer "user_teller_id"
     t.string  "title"
-    t.string  "avatar"
     t.integer "user_id"
   end
 

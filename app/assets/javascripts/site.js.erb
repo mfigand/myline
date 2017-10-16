@@ -2,7 +2,7 @@ jQuery(document).ready(function($) {
 
     var pathname = window.location.pathname.split('/');
     var user_id = pathname[pathname.length-1];
-  
+
     var avatarImgAttr = $('#avatar').attr('data-imageSrc');
     var avatarImgSrc = 'url('+avatarImgAttr+')'
 
@@ -16,7 +16,7 @@ jQuery(document).ready(function($) {
 
 
   $('#avatar').on('click', function(){
-    window.location.replace("/users/edit");
+    window.location.replace("/u/edit");
   });
 
 
@@ -25,12 +25,12 @@ jQuery(document).ready(function($) {
 
 
   function startHover() {
-    
+
     if ($('#update-cover').data('contextid') != "not_signed_in_user") {
       $('#update-cover').show();
       $('#update-parallaxPicture').show();
     }
-          
+
   }
 
   function endHover() {
@@ -39,7 +39,7 @@ jQuery(document).ready(function($) {
   }
 
   $('#update-cover').on('click',function(e){
-    
+
       $('.modal-content').empty();
 
       updateCoverModal(e,$(this).data('contextid'),"coverPicture");
@@ -52,7 +52,7 @@ jQuery(document).ready(function($) {
 
 
   function updateCoverModal(e,contextId,field){
-      
+
       if (contextId == false){
         // Create context
         var actionURL = "/users/"+user_id+"/contexts";
@@ -64,14 +64,14 @@ jQuery(document).ready(function($) {
         var method = "put";
         var formId = "user_contexts_update";
       }
-      
+
       $('.modal-content').append(
       '<div class="modal-body">'+
         '<div class="closeBtn"><button type="button" class="close" data-dismiss="my-new-modal"><span aria-hidden="true">&times;</span></button></div>'+
         '<div class="col-md-8 text-center"><b> Upload Cover Picture </b></div>'+
           '<form class="edit_user_context" id='+formId+' enctype="multipart/form-data" action='+actionURL+' accept-charset="UTF-8" method="post" >'+
           '<input type="hidden" name="_method" value="'+method+'" />'+
-            
+
               '<div id="drop" draggable="true">'+
                 '<p> Drop Here </p><br>'+
                 '<a> Browse </a>'+
@@ -84,7 +84,7 @@ jQuery(document).ready(function($) {
 
             '<input type="submit" name="commit" value="Save" class="btn btn-large btn-primary" >'+
           '</form>'+
-        
+
       '</div>'
       );
 
@@ -126,13 +126,13 @@ jQuery(document).ready(function($) {
       var ver = "POST";
       var url = "/users/"+ user_id +"/contexts";
     }
-    
+
     $.ajax({
       type: verb,
       url: url,
-      data: { 
+      data: {
         context:{
-          aboutDescription: content, 
+          aboutDescription: content,
           user_id: user_id
         },
         commit: "Save",

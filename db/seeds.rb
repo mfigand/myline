@@ -115,7 +115,12 @@ contexts = Context.create([{
     user_id: 1
     }])
 
-# tellers = Teller.create([{ name: 'Irene', title: 'Mamá', avatar: '/team/img-1.jpg', user_id: 1},
+tellers = Teller.create([
+  {user_teller_id: 2, title: 'Mamá', user_id: 1},
+  {user_teller_id: 1, title: 'Papá', user_id: 2},
+])
+
+# tellers = Teller.create([{ user_teller_id: 2, title: 'Mamá', user_id: 1},
 #     {
 #     name: 'Irene',
 #     title: 'Mamá',

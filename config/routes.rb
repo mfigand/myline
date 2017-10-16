@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users, path: 'u'
 
   root to: "site#home", as: 'home'
 

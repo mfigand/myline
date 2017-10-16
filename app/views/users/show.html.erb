@@ -36,6 +36,7 @@
 <section id="tellers" class="section orange">
   <div class="container">
     <h4>Tellers</h4>
+    <button id="add_teller_btn" class="btn btn-theme">Add Teller</button>
     <p style="text-align: center;">
        This are the people who help to tell the stories of your TimelLne.
     </p>
@@ -43,11 +44,11 @@
     <div class="row offset1">
 
       <% @user.tellers.first(5).each_with_index do | teller, index| %>
-
+      <% tellerData = User.find(teller.user_teller_id) %>
         <div class="span2 flyIn" >
           <div class="people">
-            <img class="team-thumb img-circle" src=<%= teller.avatar %> alt="" />
-            <h3><%= teller.name %></h3>
+            <img class="team-thumb img-circle" src=<%= tellerData.avatar.url %> alt="" />
+            <h3><%= tellerData.name %></h3>
             <p>
               <%= teller.title %>
             </p>

@@ -33,5 +33,5 @@ class User < ActiveRecord::Base
   has_many :tellers
   has_many :stories
 
-  
+
 end
