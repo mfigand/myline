@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+  before_filter :validate_user, :only => :show
   before_action :authenticate_user!, except: :update
 
   def index
@@ -73,6 +73,10 @@ class UsersController < ApplicationController
 
  def user_params
   params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
+ end
+
+ def validate_user
+    redirect_to home_path unless current_user.id.to_s == params[:id]
  end
 
 end
