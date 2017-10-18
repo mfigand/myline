@@ -1,0 +1,61 @@
+<!-- section: line -->
+<section id="line" class="section">
+  <div class="container clearfix">
+    <h4>My Line</h4>
+    <!-- portfolio filter -->
+    <div class="row">
+      <div id="filters" class="span12">
+        <ul class="clearfix">
+          <li><a data-filter="*">
+          <h5>All</h5>
+          </a></li>
+          <li><a data-filter="first">
+          <h5>First</h5>
+          </a></li>
+          <li><a data-filter="activity">
+          <h5>Activities</h5>
+          </a></li>
+          <li><a data-filter="custom">
+          <h5>Customs</h5>
+          </a></li>
+          <li><a data-filter="trip">
+          <h5>Trips</h5>
+          </a></li>
+        </ul>
+        <input id="search_filter" type="text" placeholder="Search by tag...">
+        <br>
+        <button id="uploadImage" class="uploadImage btn btn-theme">Upload image</button>
+        <br>
+        <div id="notFoundMessage" class="alert alert-danger" hidden>
+          <strong>Sorry!</strong> There are no stories under this Tag.
+        </div>
+
+      </div>
+      <!-- END PORTFOLIO FILTERING -->
+    </div>
+      <div class="span12">
+        <div class="timeline-wrapper clearfix">
+            <div class="timeline-content-day">
+                <div class="timeline-line"></div>
+                <button id="prev" class="btn btn-theme corousel-btn prev" style="display: none;" >Prev</button>
+                <% @user.stories.order('date ASC').limit(5).each_with_index do | story, index| %>
+                  <!-- portfolio item -->
+                  <div class="timeline-content-item" data-timeline="hour-8">
+                      <span><%= story.date.strftime("%Y %b %d") %></span>
+                      <div class="timeline-content-item-reveal">
+                          <a class="pop" >
+                              <img src=<%= (story.image || story.avatar.url) %> alt=<%= "#{story.name}" %> data-imageTag=<%= story.tag.to_json %> data-storyId=<%= "story_"+story.id.to_s %>>
+                              <span><%= story.name %></span>
+                          </a>
+                      </div>
+                  </div>
+                  <!-- end portfolio item -->
+                <% end %>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end line section -->

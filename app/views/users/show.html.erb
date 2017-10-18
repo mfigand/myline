@@ -38,128 +38,13 @@
   </div>
 </section>
 <!-- end spacer section -->
-<!-- section: team -->
-<section id="about" class="section">
-  <div class="container">
-    <h4>Introduction</h4>
-    <div class="row">
-      <div class="span4 offset1">
-        <div id="about-description" contenteditable="true" data-usercontext=<%= current_user.context ? current_user.context.id : false %> >
-          <p class="justify">
-            <% if current_user.context && current_user.context.aboutDescription != nil %>
-              <%= simple_format(current_user.context.aboutDescription) %>
-            <% else %>
-              Here you can write a message to your baby. <br><br>
-              Most importantly show them that they were surrounded by love <br><br>
-              from the moment they came to the world. <br>
-            <% end %>
-          </p>
-        </div>
-      </div>
-      <div class="span6">
-        <div class="aligncenter">
-          <% if (current_user.context && current_user.context.aboutPicture != "") %>
-            <img class="team-thumb img-circle" src=<%= current_user.context.aboutPicture %> alt="MyLine" />
-          <% else %>
-            <!-- <img class="team-thumb img-circle" src='/icons/creativity.png' alt="" /> -->
-            <iframe width="420" height="315" src="https://www.youtube.com/embed/ubdWitOk6zQ" frameborder="0" allowfullscreen></iframe>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- /.container -->
-</section>
-<!-- end section: team -->
-<!-- section: tellers -->
-<section id="tellers" class="section orange">
-  <div class="container">
-    <h4>Tellers</h4>
-    <button id="add_teller_btn" class="btn btn-theme">Add Teller</button>
-    <p style="text-align: center;">
-       This are the people who help to tell the stories of your TimelLne.
-    </p>
-    <!-- Four columns -->
-    <div class="row offset1">
 
-      <% @user.tellers.first(5).each_with_index do | teller, index| %>
-      <% tellerData = User.find(teller.user_teller_id) %>
-        <div class="span2 flyIn" >
-          <div class="people">
-            <img class="team-thumb img-circle" src=<%= tellerData.avatar.url %> alt="" />
-            <h3><%= tellerData.name %></h3>
-            <p>
-              <%= teller.title %>
-            </p>
-          </div>
-        </div>
+<%= render "introduction" %>
 
-      <% end %>
+<%= render "tellers" %>
 
-    </div>
-  </div>
-</section>
-<!-- end section: tellers -->
-<!-- section: line -->
-<section id="line" class="section">
-  <div class="container clearfix">
-    <h4>My Line</h4>
-    <!-- portfolio filter -->
-    <div class="row">
-      <div id="filters" class="span12">
-        <ul class="clearfix">
-          <li><a data-filter="*">
-          <h5>All</h5>
-          </a></li>
-          <li><a data-filter="first">
-          <h5>First</h5>
-          </a></li>
-          <li><a data-filter="activity">
-          <h5>Activities</h5>
-          </a></li>
-          <li><a data-filter="custom">
-          <h5>Customs</h5>
-          </a></li>
-          <li><a data-filter="trip">
-          <h5>Trips</h5>
-          </a></li>
-        </ul>
-        <input id="search_filter" type="text" placeholder="Search by tag...">
-        <br>
-        <button id="uploadImage" class="uploadImage btn btn-theme">Upload image</button>
-        <br>
-        <div id="notFoundMessage" class="alert alert-danger" hidden>
-          <strong>Sorry!</strong> There are no stories under this Tag.
-        </div>
+<%= render "line" %>
 
-      </div>
-      <!-- END PORTFOLIO FILTERING -->
-    </div>
-      <div class="span12">
-        <div class="timeline-wrapper clearfix">
-            <div class="timeline-content-day">
-                <div class="timeline-line"></div>
-                <button id="prev" class="btn btn-theme corousel-btn prev" style="display: none;" >Prev</button>
-                <% @user.stories.order('date ASC').limit(5).each_with_index do | story, index| %>
-                  <!-- portfolio item -->
-                  <div class="timeline-content-item" data-timeline="hour-8">
-                      <span><%= story.date.strftime("%Y %b %d") %></span>
-                      <div class="timeline-content-item-reveal">
-                          <a class="pop" >
-                              <img src=<%= (story.image || story.avatar.url) %> alt=<%= "#{story.name}" %> data-imageTag=<%= story.tag.to_json %> data-storyId=<%= "story_"+story.id.to_s %>>
-                              <span><%= story.name %></span>
-                          </a>
-                      </div>
-                  </div>
-                  <!-- end portfolio item -->
-                <% end %>
-
-            </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 <!-- spacer section -->
 <style>
 <% if @user.context && @user.context.parallaxPicture != nil %>
@@ -199,6 +84,7 @@
     </div>
   </div>
 </section>
+
 <!-- end spacer section -->
 <!-- section: blog -->
 <!-- <section id="blog" class="section">

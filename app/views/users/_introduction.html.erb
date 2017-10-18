@@ -1,0 +1,33 @@
+<!-- section: Introduction -->
+<section id="about" class="section">
+  <div class="container">
+    <h4>Introduction</h4>
+    <div class="row">
+      <div class="span4 offset1">
+        <div id="about-description" contenteditable="true" data-usercontext=<%= current_user.context ? current_user.context.id : false %> >
+          <p class="justify">
+            <% if current_user.context && current_user.context.aboutDescription != nil %>
+              <%= simple_format(current_user.context.aboutDescription) %>
+            <% else %>
+              Here you can write a message to your baby. <br><br>
+              Most importantly show them that they were surrounded by love <br><br>
+              from the moment they came to the world. <br>
+            <% end %>
+          </p>
+        </div>
+      </div>
+      <div class="span6">
+        <div class="aligncenter">
+          <% if (current_user.context && current_user.context.aboutPicture != "") %>
+            <img class="team-thumb img-circle" src=<%= current_user.context.aboutPicture %> alt="MyLine" />
+          <% else %>
+            <!-- <img class="team-thumb img-circle" src='/icons/creativity.png' alt="" /> -->
+            <iframe width="420" height="315" src="https://www.youtube.com/embed/ubdWitOk6zQ" frameborder="0" allowfullscreen></iframe>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- /.container -->
+</section>
+<!-- end section: Introduction -->
