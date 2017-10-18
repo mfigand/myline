@@ -1,4 +1,43 @@
+<!-- spacer section -->
+<section class="spacer green">
+  <div class="container">
+    <div class="row">
+      <div class="span4 alignright flyLeft">
+        <!-- Select Child section -->
+        <h4>Select Child</h4>
+        <select class="select-child" data-style="btn-info">
+          <% @user.children.each_with_index  do |child| %>
+            <option class="child-selected" data-age=<%= child.get_age %> ><%= child.name %></option>
+          <% end %>
+        </select>
+      </div>
+      <!-- End of select Child Section -->
 
+      <!-- counter section -->
+      <div class="span2 aligncenter flyRight">
+        <div class="single_counter">
+            <h2 id="ageYears" class="statistic-counter">0</h2>
+            <p>Year</p>
+        </div>
+      </div>
+      <div class="span2 aligncenter flyRight">
+        <div class="single_counter">
+            <h2 id="ageMonths" class="statistic-counter">0</h2>
+            <p>Month</p>
+        </div>
+      </div>
+      <div class="span2 aligncenter flyRight">
+        <div class="single_counter">
+            <h2 id="ageDays" class="statistic-counter">0</h2>
+            <p>Days</p>
+        </div>
+      </div>
+        <!-- End of counter Section -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end spacer section -->
 <!-- section: team -->
 <section id="about" class="section">
   <div class="container">

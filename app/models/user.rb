@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
 
   has_one :context
   has_many :tellers
-  has_many :stories
+  has_many :children
+  has_many :stories, through: :children
 
 
 end

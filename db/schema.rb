@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170830144258) do
+ActiveRecord::Schema.define(version: 20171017193346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "children", force: :cascade do |t|
+    t.string  "name"
+    t.date    "birth_day"
+    t.integer "user_id"
+  end
+
+  add_index "children", ["user_id"], name: "index_children_on_user_id", using: :btree
 
   create_table "contexts", force: :cascade do |t|
     t.text     "aboutDescription"
@@ -58,6 +66,7 @@ ActiveRecord::Schema.define(version: 20170830144258) do
     t.date     "date"
     t.string   "image"
     t.integer  "teller_id"
+    t.integer  "child_id"
     t.integer  "user_id"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
@@ -65,6 +74,7 @@ ActiveRecord::Schema.define(version: 20170830144258) do
     t.datetime "avatar_updated_at"
   end
 
+  add_index "stories", ["child_id"], name: "index_stories_on_child_id", using: :btree
   add_index "stories", ["user_id"], name: "index_stories_on_user_id", using: :btree
 
   create_table "tellers", force: :cascade do |t|
@@ -105,5 +115,6 @@ ActiveRecord::Schema.define(version: 20170830144258) do
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
+  add_foreign_key "children", "users"
   add_foreign_key "tellers", "users"
 end

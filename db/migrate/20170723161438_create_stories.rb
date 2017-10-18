@@ -6,6 +6,7 @@ class CreateStories < ActiveRecord::Migration
       t.date :date
       t.string :image
       t.integer :teller_id
+      t.belongs_to :child, index: true
       t.belongs_to :user, index: true
     end
   end

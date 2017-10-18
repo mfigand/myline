@@ -1,0 +1,34 @@
+// Counter
+jQuery(document).ready(function($) {
+
+  function moveCounter() {
+    jQuery('.statistic-counter').counterUp({
+        delay: 50,
+        time: 1000
+      });
+  }
+
+  function getAge() {
+    var age;
+    $('.child-selected').each(function( index, child ) {
+      if ($('.select-child').val() == child.value) {
+        age = JSON.parse(child.dataset.age);
+        // $('#ageYears').val(age.years);
+        $('#ageYears').text(age.years.toString());
+        // $('#ageMonths').val(age.months);
+        $('#ageMonths').text(age.months.toString());
+        // $('#ageDays').val(age.days);
+        $('#ageDays').text(age.days.toString());
+      }
+    });
+    moveCounter();
+  }
+
+
+  $('.select-child').change(function() {
+    getAge();
+  });
+
+  getAge();
+
+});
