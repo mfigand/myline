@@ -12,13 +12,16 @@ jQuery(document).ready(function($) {
   });
 
   function getAllStories() {
+    // Empty localStorage
+    localStorage.clear();
     var url = window.location.pathname;
-    var user_id = url.substring(url.lastIndexOf('/') + 1);
+    var user_id = parseInt(url.split("/")[2]);
+    var children_id = parseInt(url.substring(url.lastIndexOf('/') + 1));
 
-    if (user_id) {
+    if (user_id && children_id) {
       return $.ajax({
         type: "GET",
-        url: '/users/' + user_id + '/json_stories',
+        url: '/children/' + children_id + '/json_stories',
         contentType: 'application/x-www-form-urlencoded',
         headers: {"X-HTTP-Method-Override": "GET"},
         cacheControl: true,
@@ -76,6 +79,9 @@ jQuery(document).ready(function($) {
   }
 
   function uploaderModal(){
+    $('#drop a, #drop p').show();
+    $('#drop ul').empty();
+    $('#story_name').val("");
 
     var pathname = window.location.pathname.split('/');
     var user_id = pathname[pathname.length-1];

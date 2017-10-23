@@ -17,17 +17,18 @@ class Child < ActiveRecord::Base
   # validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   belongs_to :user
+  # has_many :tellers
   has_many :stories
 
+
   def get_age
-    
+
     age ={
       :years => DateTime.now.year - self.birth_day.year,
       :months => DateTime.now.month - self.birth_day.month,
       :days => DateTime.now.day - self.birth_day.day
     }
 
-    age.to_json.to_s
   end
 
 end

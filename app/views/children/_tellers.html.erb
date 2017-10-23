@@ -1,0 +1,31 @@
+<!-- section: tellers -->
+<section id="tellers" class="section orange">
+  <div class="container">
+    <h4>Tellers</h4>
+    <p style="text-align: center;">
+       This are the people who help to tell the stories of your Time Line.
+    </p>
+    <br>
+    <button id="addTellerBtn" class="btn btn-theme">Add Teller</button>
+    <br>
+
+    <!-- Four columns -->
+    <div class="row offset1">
+
+      <% @tellers.first(5).each_with_index do | teller, index| %>
+        <div class="span2 flyIn" >
+          <div class="people">
+            <img class="team-thumb img-circle" src=<%= teller.avatar.url %> alt="" />
+            <h3><%= teller.name %></h3>
+            <p>
+              <%= @teller_titles[index] %>
+            </p>
+          </div>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</section>
+<!-- end section: tellers -->

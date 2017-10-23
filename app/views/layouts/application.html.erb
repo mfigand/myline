@@ -44,11 +44,11 @@
 
           <nav class="pull-right nav-collapse collapse">
           <ul id="menu-main" class="nav">
-            <li><a title="team" href="#about">About</a></li>
-            <li><a title="tellers" href="#tellers">Tellers</a></li>
-            <li><a title="line" href="#line">Line</a></li>
+            <li><a title="team" href="/#about">About</a></li>
+            <li><a title="tellers" href="/#tellers">Tellers</a></li>
+            <li><a title="line" href="/#line">Line</a></li>
             <!-- <li><a title="blog" href="#blog">Blog</a></li> -->
-            <li><a title="contact" href="#contact">Cuddles</a></li>
+            <li><a title="contact" href="/#contact">Cuddles</a></li>
             <% if user_signed_in? %>
               <li><%= link_to 'Sign out', destroy_user_session_path, method: 'DELETE', class: 'sign_out' %></li>
             <% else %>

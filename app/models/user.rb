@@ -30,9 +30,10 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   has_one :context
-  has_many :tellers
   has_many :children
   has_many :stories, through: :children
+  # has_many :tellers, through: :children
+  has_many :users, through: :stories
 
 
 end

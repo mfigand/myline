@@ -1,0 +1,47 @@
+<div class="modal fade bs-example-modal-lg" id="uploader-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" hidden>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>
+        <div class="col-md-8 text-center"><b> Upload Image </b></div>
+        <br>
+
+        <%= form_for [current_user,@child,Story.new] do |f| %>
+          <div class="field" id="drop" draggable="true">
+            <p> Drop Here </p><br>
+            <a> Browse </a>
+            <%= f.label :file %><br />
+            <%= f.file_field :avatar, required:'' %>
+          </div>
+
+          <div class="field">
+            <%= f.label :name %><br />
+            <%= f.text_field :name, autofocus: true, required:'', size:"20" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :teller_title %><br />
+            <%= f.text_field :teller_title, autofocus: true, required:'', size:"20" %>
+          </div>
+
+          <div class="field" >
+            <%= f.label :date %><br />
+            <%= f.date_field :date, size:"20", required:'' %>
+          </div>
+
+          <div class="field" id="tagContainer">
+            <div class="field">
+              <%= f.label :tag %><br />
+              <%= f.text_field :tag, size:"20", required:'' %>
+            </div>
+          </div>
+          <br>
+
+          <%= f.submit %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<!-- create child section -->
+<section class="spacer green">
+  <div class="container">
+    <div class="row">
+      <div class="aligncenter">
+        <h4>Create Child</h4>
+
+        <%= form_for [current_user,Child.new] do |f| %>
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-field', required:'' %>
+          <br>
+          <%= f.label :birth_day %>
+          <%= f.date_field :birth_day, class: 'form-field', required:''%>
+          <br>
+          <br>
+          <%= f.submit 'Save', class: 'btn btn-theme btn-form' %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end create child section -->

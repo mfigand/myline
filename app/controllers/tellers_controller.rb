@@ -46,6 +46,19 @@ class TellersController < ApplicationController
     redirect_to root_path
   end
 
+  def addTeller
+    binding.pry
+    tellerToAdd = User.where(email:params[:email]).first
+    if tellerToAdd.present?
+      Teller.create(user_teller_id: tellerToAdd.id, title: params[:title], user_id: current_user.id, child_id: params[:child_id], story_id:nil)
+    else
+      # send invitation
+    end
+
+    redirect_to user_child_path(current_user.id,params[:child_id])
+
+  end
+
 
   private
 

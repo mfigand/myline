@@ -1,0 +1,37 @@
+<!-- select child section -->
+<section class="spacer green">
+  <div class="container">
+    <div class="row">
+
+      <div class="span4 alignright flyLeft">
+        <!-- Select Child section -->
+        <h4><%= @child.name %></h4>
+      </div>
+      <!-- End of select Child Section -->
+
+      <!-- counter section -->
+      <div class="span2 aligncenter flyRight">
+        <div class="single_counter">
+            <h2 id="ageYears" class="statistic-counter"><%= @age[:years] %></h2>
+            <p>Year</p>
+        </div>
+      </div>
+      <div class="span2 aligncenter flyRight">
+        <div class="single_counter">
+            <h2 id="ageMonths" class="statistic-counter"><%= @age[:months] %></h2>
+            <p>Month</p>
+        </div>
+      </div>
+      <div class="span2 aligncenter flyRight">
+        <div class="single_counter">
+            <h2 id="ageDays" class="statistic-counter"><%= @age[:days] %></h2>
+            <p>Days</p>
+        </div>
+      </div>
+        <!-- End of counter Section -->
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- end select child section -->

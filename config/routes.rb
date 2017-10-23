@@ -4,11 +4,14 @@ Rails.application.routes.draw do
 
   root to: "site#home", as: 'home'
 
-  get '/users/:user_id/json_stories', to: 'users#allStories', as: 'all_stories'
+  get '/children/:child_id/json_stories', to: 'children#allStories', as: 'all_stories'
+  post '/tellers/add_teller', to: 'tellers#addTeller', as: 'add_teller'
 
 
   resources :users do
-    resources :contexts, :stories
+    resources :children do
+      resources :stories
+    end
   end
 
 end

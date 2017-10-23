@@ -29,6 +29,9 @@ class UsersController < ApplicationController
 
   def show
      @user = User.find(params[:id])
+     if current_user.children.count > 0
+       redirect_to user_child_path(params[:id],@user.children.first.id)
+     end
   end
 
   def edit
@@ -50,18 +53,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     redirect_to root_path
-  end
-
-  def allStories
-    @user = User.find(params[:user_id])
-    @allStories = User.first.stories
-    @allStories.map { |story|
-      if story.image === nil
-        story.image = story.avatar.url
-        story.save
-      end
-    }
-    render json: @allStories
   end
 
   def profile

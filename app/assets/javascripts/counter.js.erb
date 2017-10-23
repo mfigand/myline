@@ -2,33 +2,78 @@
 jQuery(document).ready(function($) {
 
   function moveCounter() {
-    jQuery('.statistic-counter').counterUp({
+    return jQuery('.statistic-counter').counterUp({
         delay: 50,
         time: 1000
       });
   }
 
-  function getAge() {
-    var age;
-    $('.child-selected').each(function( index, child ) {
-      if ($('.select-child').val() == child.value) {
-        age = JSON.parse(child.dataset.age);
-        // $('#ageYears').val(age.years);
-        $('#ageYears').text(age.years.toString());
-        // $('#ageMonths').val(age.months);
-        $('#ageMonths').text(age.months.toString());
-        // $('#ageDays').val(age.days);
-        $('#ageDays').text(age.days.toString());
-      }
-    });
-    moveCounter();
-  }
+  // function getAge() {
+  //   var age;
+  //   $('.child-selected').each(function( index, child ) {
+  //     if ($('.select-child').val() == child.value) {
+  //       age = JSON.parse(child.dataset.age);
+  //       child_id = JSON.parse(child.dataset.child);
+  //       // $('#ageYears').val(age.years);
+  //       $('#ageYears').text(age.years.toString());
+  //       // $('#ageMonths').val(age.months);
+  //       $('#ageMonths').text(age.months.toString());
+  //       // $('#ageDays').val(age.days);
+  //       $('#ageDays').text(age.days.toString());
+  //     }
+  //   });
+  //   moveCounter();
+  // }
+  //
+  // // function changeChild() {
+  //   // $.ajax({
+  //   //   url: '/users/1/',
+  //   //   type: 'post',
+  //   //   data: {'q':q},
+  //   //   contentType: 'json'
+  //   // });
+  //   //  var data = {
+  //   //   name : $('#story_name').val(),
+  //   //   date : $('#story_date').val() || fileDate.getFullYear()+"-"+(fileDate.getMonth()+1)+"-"+fileDate.getDay(),
+  //   //   avatar : $('#story_avatar')[0].files,
+  //   //   // avatar : JSON.stringify($('#story_avatar')[0].files[0]),
+  //   //   // avatar : "hola",
+  //   //   tag : $('#story_tag').val(),
+  //   //   user_id : user_id,
+  //   //   commit : "Save"
+  //   // }
+  //
+  //   // var request = $.post( action, {
+  //   //    method: "POST",
+  //   //     connection: "keep-alive",
+  //   //     pragma: "no-cache",
+  //   //     cache: false,
+  //   //     processData: false,
+  //   //     headers: {"Authorization": window._token, "method": "POST", "X-HTTP-Method-Override":"GET"},
+  //   //     contentType: "application/x-www-form-urlencoded",
+  //   //     contentType: "application/json; charset=utf-8",
+  //   //     dataType: "json",
+  //   //     story: data
+  //   //  });
+  //   //
+  //   // request.done(function( msg ) {
+  //   //   debugger
+  //   // });
+  //   //
+  //   // request.fail(function( jqXHR, textStatus ) {
+  //   //   debugger
+  //   //   console.log( "Status: " + textStatus + "Response: " + jqXHR.responseText );
+  //   // });
+  // // }
+  //
+  //
+  // $('.select-child').change(function() {
+  //   // changeChild();
+  //   getAge();
+  // });
+  //
+  // getAge();
+  moveCounter();
 
-
-  $('.select-child').change(function() {
-    getAge();
-  });
-
-  getAge();
 
 });

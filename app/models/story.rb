@@ -1,6 +1,6 @@
 class Story < ActiveRecord::Base
 
-  validates :name, :date, :tag, :child_id, :user_id, presence: true
+  validates :name, :date, :tag, :child_id, :teller_title, :user_id, presence: true
 
   # Paperclip validations
   validates :avatar, attachment_presence: true
@@ -18,5 +18,6 @@ class Story < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :child
+  # belongs_to :teller
 
 end
