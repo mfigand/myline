@@ -1,6 +1,6 @@
 class ChildrenController < ApplicationController
   before_action :is_authorized?
-  before_action :authenticate_user!, except: :update
+  before_action :authenticate_user!, :except => [:update]
 
   def index
     @children = Child.all
@@ -89,10 +89,12 @@ class ChildrenController < ApplicationController
  end
 
  def is_authorized?
-   @child = Child.where(id:params[:id]).first
-   @user = User.where(id:params[:user_id]).first
-   if (@child == nil || @user == nil) && @child.try(:user) != @user
-     redirect_to user_path(params[:user_id])
+   @child = Child.where(id:params[:id]).first || Child.where(id:params[:child_id]).first
+   @user = current_user
+   @tellers = @child.try(:tellers)
+   if @child == nil || @user == nil || (@child.try(:user) != @user && @tellers.where(user_teller_id:@user.id).empty?)
+     binding.pry
+     redirect_to user_path(@user.id)
    end
  end
 

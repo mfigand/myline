@@ -29,8 +29,14 @@ class UsersController < ApplicationController
 
   def show
      @user = User.find(params[:id])
+     is_teller = Teller.where(user_teller_id:params[:id])
+     #if have children show first
      if current_user.children.count > 0
        redirect_to user_child_path(params[:id],@user.children.first.id)
+     #if is Teller for children show first
+     elsif is_teller.any?
+       @child = is_teller.first.child
+       redirect_to user_child_path(params[:id],@child.id)
      end
   end
 

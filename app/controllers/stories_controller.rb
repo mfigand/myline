@@ -15,6 +15,13 @@ class StoriesController < ApplicationController
     @story.tag = story_params[:tag].split(' ;')
     @story.child_id = params[:child_id]
     @story.user_id = params[:user_id]
+    child = Child.find(params[:child_id])
+    if current_user == child.user
+      @story.teller_title = "Creator"
+    else
+      @story.teller_title = child.tellers.where(user_teller_id:current_user.id).first.title
+    end
+
     if @story.save
       flash[:notice] = "Story created succesfully"
       redirect_to '/users/'+params[:user_id]+'/children/'+params[:child_id]
@@ -58,7 +65,7 @@ class StoriesController < ApplicationController
   private
 
  def story_params
-  params.require(:story).permit(:name, :teller_title, :tag, :date, :avatar)
+  params.require(:story).permit(:name, :tag, :date, :avatar)
  end
 
 end
