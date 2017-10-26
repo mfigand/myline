@@ -13,6 +13,8 @@ class TellersController < ApplicationController
   def create
     @teller = Teller.new teller_params
     if @teller.save
+      binding.pry
+      NotificationMailer.notification_email(@user).deliver
       flash[:notice] = "Teller created succesfully"
       render status: 200, json: @teller.to_json
     else
@@ -47,12 +49,15 @@ class TellersController < ApplicationController
   end
 
   def addTeller
-    binding.pry
     tellerToAdd = User.where(email:params[:email]).first
     if tellerToAdd.present?
+      binding.pry
       Teller.create(user_teller_id: tellerToAdd.id, title: params[:title], user_id: current_user.id, child_id: params[:child_id], story_id:nil)
+      NotificationMailer.notification_email(@user).deliver
     else
       # send invitation
+      binding.pry
+      NotificationMailer.notification_email(@user).deliver
     end
 
     redirect_to user_child_path(current_user.id,params[:child_id])
