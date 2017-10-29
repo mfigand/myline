@@ -93,7 +93,6 @@ class ChildrenController < ApplicationController
    @user = current_user
    @tellers = @child.try(:tellers)
    if @child == nil || @user == nil || (@child.try(:user) != @user && @tellers.where(user_teller_id:@user.id).empty?)
-     binding.pry
      redirect_to user_path(@user.id)
    end
  end

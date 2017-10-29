@@ -13,7 +13,6 @@ class TellersController < ApplicationController
   def create
     @teller = Teller.new teller_params
     if @teller.save
-      binding.pry
       NotificationMailer.notification_email(@user).deliver
       flash[:notice] = "Teller created succesfully"
       render status: 200, json: @teller.to_json
