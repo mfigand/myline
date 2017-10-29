@@ -1,5 +1,5 @@
 class ChildrenController < ApplicationController
-  before_action :is_authorized?
+  before_action :is_authorized?, only: [:show]
   before_action :authenticate_user!, :except => [:update]
 
   def index
