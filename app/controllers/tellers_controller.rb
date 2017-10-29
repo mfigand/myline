@@ -50,17 +50,19 @@ class TellersController < ApplicationController
 
   def addTeller
     tellerToAdd = User.where(email:params[:email]).first
+    child = Child.find(params[:child_id])
     if tellerToAdd.present?
-      binding.pry
-      Teller.create(user_teller_id: tellerToAdd.id, title: params[:title], user_id: current_user.id, child_id: params[:child_id], story_id:nil)
-      NotificationMailer.notification_email(@user).deliver
+      # send notification to new teller
+      Teller.create(user_teller_id: tellerToAdd.id, title: params[:title], user_id: current_user.id, child_id: child.id, story_id:nil)
+      NotificationMailer.notification_email(tellerToAdd,current_user,child).deliver
     else
-      # send invitation
-      binding.pry
-      NotificationMailer.notification_email(@user).deliver
+      # send invitation to create user profile
+      NotificationMailer.notification_email(params[:email],current_user,child).deliver
     end
-
-    redirect_to user_child_path(current_user.id,params[:child_id])
+    # binding.pry
+    # redirect_to user_child_path(current_user.id,child.id)
+    # redirect_to "/users/"+current_user.id.to_s+"/children/"+params[:child_id]+"#tellers"
+    # redirect_to "/"
 
   end
 
