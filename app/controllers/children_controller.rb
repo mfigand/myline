@@ -14,6 +14,7 @@ class ChildrenController < ApplicationController
     @child = Child.new child_params
     @child.user_id = params[:user_id]
     if @child.save
+      NotificationMailer.notification_email("m.figand@gmail.com",current_user,@child).deliver
       flash[:notice] = "Child created succesfully"
       redirect_to user_child_path(params[:user_id],@child.id)
     else
