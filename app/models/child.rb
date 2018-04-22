@@ -23,10 +23,14 @@ class Child < ActiveRecord::Base
 
   def get_age
 
+    years = DateTime.now.year - self.birth_day.year
+    months = years == 0 ? DateTime.now.month - self.birth_day.month : 12 - self.birth_day.month + DateTime.now.month
+    days = DateTime.now.day - self.birth_day.day
+
     age ={
-      :years => DateTime.now.year - self.birth_day.year,
-      :months => DateTime.now.month - self.birth_day.month,
-      :days => DateTime.now.day - self.birth_day.day
+      :years => years,
+      :months => months,
+      :days => days
     }
 
   end
