@@ -5,26 +5,26 @@
 
       <div class="span4 alignright flyLeft">
         <!-- Select Child section -->
-        <h4><%= @child.name %></h4>
+        <h4 class="child-info"><%= @child.name %></h4>
       </div>
       <!-- End of select Child Section -->
 
       <!-- counter section -->
       <div class="span2 aligncenter flyRight">
         <div class="single_counter">
-            <h2 id="ageYears" class="statistic-counter"><%= @age[:years] %></h2>
+            <h2 id="ageYears" class="statistic-counter child-info"><%= @age[:years] %></h2>
             <p>Year</p>
         </div>
       </div>
       <div class="span2 aligncenter flyRight">
         <div class="single_counter">
-            <h2 id="ageMonths" class="statistic-counter"><%= @age[:months] %></h2>
+            <h2 id="ageMonths" class="statistic-counter child-info"><%= @age[:months] %></h2>
             <p>Month</p>
         </div>
       </div>
       <div class="span2 aligncenter flyRight">
         <div class="single_counter">
-            <h2 id="ageDays" class="statistic-counter"><%= @age[:days] %></h2>
+            <h2 id="ageDays" class="statistic-counter child-info"><%= @age[:days] %></h2>
             <p>Days</p>
         </div>
       </div>

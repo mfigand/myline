@@ -1,3 +1,9 @@
 .form-field, .btn-form{
   max-width: 220px !important;
 }
+
+.child-info{
+  color: #fff;
+  font-size: 60px;
+  font-weight: bold;
+}
