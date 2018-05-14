@@ -30,10 +30,46 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   has_one :context
-  has_many :children
-  has_many :stories, through: :children
-  # has_many :tellers, through: :children
-  has_many :users, through: :stories
+  has_many :stories
+  has_many :relationships, class_name:  "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent:   :destroy
+  # has_many :relationships
+  # has_many :users, through: :relationships
+
+  def children
+    self.relationships.where(relationship:"parent").map{|relationship| relationship.followed}
+  end
+
+  def tellers
+    Relationship.where(followed_id: self.id, relationship: "teller").map{|relationship| relationship.follower}
+  end
+
+  def tellers_kinships
+    Relationship.where(followed_id: self.id, relationship: "teller").map{|relationship| relationship.kinship}
+  end
+
+  def get_age
+    date_difference = (DateTime.now-self.birthday).to_i
+    last_month = DateTime.now.month - 1
+
+    years = date_difference / 365
+    months = (date_difference % 365) / 30
+    days = (days_in_month(last_month) - self.birthday.day) + DateTime.now.day
+
+    age = {
+      :years => years,
+      :months => months,
+      :days => days
+    }
+  end
+
+  def days_in_month(month, year = Time.now.year)
+    days_in_months = [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+     return 29 if month == 2 && Date.gregorian_leap?(year)
+     days_in_months[month]
+  end
 
 
 end

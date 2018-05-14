@@ -1,5 +1,57 @@
 jQuery(document).ready(function($) {
+
+  $('#alertMessage').hide();
+  $('#alertMessage').empty();
+
+  function  handle_add_teller_response(response, textStatus, errorThrown){
+    if (response.status == "Success") {
+      $('#alertMessage').addClass('alert-success');
+    }else{
+      $('#alertMessage').addClass('alert-danger');
+    }
+    $('#alertMessage').append('<strong>'+response.status+'!</strong> ' + response.message + '.');
+    $('#addTeller-modal').modal('toggle');
+    $('#alertMessage').show();
+  }
+
+  function submitTeller() {
+    var data = {
+      kinship: $('#kinship').val(),
+      email: $('#email').val(),
+      child_id: $('#child_id').val()
+    }
+
+    $.ajax({
+      type: "POST",
+      url: '/users/add_teller',
+      contentType: 'application/x-www-form-urlencoded',
+      headers: {"X-HTTP-Method-Override": "POST"},
+      cacheControl: true,
+      data: data,
+      success: function (response, textStatus, errorThrown) {
+        handle_add_teller_response(response, textStatus, errorThrown);
+      },
+      error: function (response, textStatus, errorThrown) {
+        $('#addTeller-modal').modal('toggle');
+        console.log('Ocurrió el siguiente error:' + errorThrown);
+      }
+    });
+  }
+
   $('#addTellerBtn').on('click',function(event){
+    $('#alertMessage').hide();
+    $('#alertMessage').empty();
     $('#addTeller-modal').modal('show');
+
+    $('#addTellerInput').unbind().on("click",function(e){
+      e.preventDefault();
+      try {
+       submitTeller();
+      } catch (e) {
+       throw new Error(e.message);
+      }
+      return false;
+    });
   });
+
 });

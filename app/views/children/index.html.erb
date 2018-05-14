@@ -1,0 +1,159 @@
+<!-- spacer section -->
+<section class="spacer green">
+  <div class="container">
+    <div class="row">
+      <!-- Select Child section -->
+      <div class="span4 alignright flyLeft">
+        <h4 class="child-info">Select Child</h4>
+      </div>
+      <div class="span4 alignright flyRight">
+        <div class="input-group">
+          <select class="custom-select" id="inputGroupSelectChild">
+            <% @children.each_with_index  do |child| %>
+              <option class="child-selected" data-user=<%= current_user.id %> data-child=<%= child.id %> data-age=<%= child.get_age %> ><%= child.name %></option>
+            <% end %>
+          </select>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="selectChild">Go</button>
+          </div>
+        </div>
+      </div>
+      <!-- End of select Child Section -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end spacer section -->
+
+<%= render "introduction" %>
+
+<!-- spacer section -->
+<style>
+<% if current_user.context && current_user.context.parallaxPicture != nil %>
+  section.spacer.bg3 {
+    background: #444 url(<%= current_user.context.parallaxPicture.url %>) no-repeat center center fixed;
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+  }
+<% else %>
+  section.spacer.bg3 {
+    background: #444 url('/bg/bg-5.jpg') no-repeat center center fixed;
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+  }
+<% end %>
+</style>
+  <section class="spacer bg3" id="cover2">
+     <% if user_signed_in? && current_user.context %>
+        <button id="update-parallaxPicture" class="pull-left" data-contextid=<%= current_user.context.id %> hidden>Update Parallax Picture</button><br>
+    <% else %>
+        <button id="update-parallaxPicture" class="pull-left" data-contextid=<%= false %> hidden>Update Parallax Picture</button><br>
+    <% end %>
+  <div class="container">
+    <div class="row">
+      <div class="span12 aligncenter flyLeft">
+        <blockquote class="large">
+           We are the link between our present and your future
+        </blockquote>
+      </div>
+      <div class="span12 aligncenter flyRight">
+        <i class="icon-rocket icon-10x"></i>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- end spacer section -->
+<!-- section: blog -->
+<!-- <section id="blog" class="section">
+  <div class="container">
+    <h4>Blog</h4>-->
+    <!-- Three columns -->
+ <!--    <div class="row">
+      <div class="span3">
+        <div class="home-post">
+          <div class="post-image">
+            <img class="max-img" src="/blog/img1.jpg" alt="" />
+          </div>
+          <div class="post-meta">
+            <i class="icon-file icon-2x"></i>
+            <span class="date">June 19, 2013</span>
+            <span class="tags"><a href="#">Design</a>, <a href="#">Blog</a></span>
+          </div>
+          <div class="entry-content">
+            <h5><strong><a href="#">New design trends</a></strong></h5>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. &hellip;
+            </p>
+            <a href="#" class="more">Read more</a>
+          </div>
+        </div>
+      </div>
+      <div class="span3">
+        <div class="home-post">
+          <div class="post-image">
+            <img class="max-img" src="/blog/img2.jpg" alt="" />
+          </div>
+          <div class="post-meta">
+            <i class="icon-file icon-2x"></i>
+            <span class="date">June 19, 2013</span>
+            <span class="tags"><a href="#">Design</a>, <a href="#">News</a></span>
+          </div>
+          <div class="entry-content">
+            <h5><strong><a href="#">Retro is great</a></strong></h5>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. &hellip;
+            </p>
+            <a href="#" class="more">Read more</a>
+          </div>
+        </div>
+      </div>
+      <div class="span3">
+        <div class="home-post">
+          <div class="post-image">
+            <img class="max-img" src="/blog/img3.jpg" alt="" />
+          </div>
+          <div class="post-meta">
+            <i class="icon-file icon-2x"></i>
+            <span class="date">June 22, 2013</span>
+            <span class="tags"><a href="#">Design</a>, <a href="#">Tips</a></span>
+          </div>
+          <div class="entry-content">
+            <h5><strong><a href="#">Isometric mockup</a></strong></h5>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. &hellip;
+            </p>
+            <a href="#" class="more">Read more</a>
+          </div>
+        </div>
+      </div>
+      <div class="span3">
+        <div class="home-post">
+          <div class="post-image">
+            <img class="max-img" src="/blog/img4.jpg" alt="" />
+          </div>
+          <div class="post-meta">
+            <i class="icon-file icon-2x"></i>
+            <span class="date">June 27, 2013</span>
+            <span class="tags"><a href="#">News</a>, <a href="#">Tutorial</a></span>
+          </div>
+          <div class="entry-content">
+            <h5><strong><a href="#">Free icon set</a></strong></h5>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. &hellip;
+            </p>
+            <a href="#" class="more">Read more</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="blankdivider30"></div>
+    <div class="aligncenter">
+      <a href="#" class="btn btn-large btn-theme">More blog post</a>
+    </div>
+  </div>
+</section> -->

@@ -28,16 +28,30 @@ class UsersController < ApplicationController
   end
 
   def show
-     @user = User.find(params[:id])
-     is_teller = Teller.where(user_teller_id:params[:id])
-     #if have children show first
-     if current_user.children.count > 0
-       redirect_to user_child_path(params[:id],@user.children.first.id)
-     #if is Teller for children show first
-     elsif is_teller.any?
-       @child = is_teller.first.child
-       redirect_to user_child_path(params[:id],@child.id)
-     end
+    children = current_user.children.count
+
+    case children
+    when 0
+      redirect_to user_path(current_user)
+    when 1
+      redirect_to user_child_path( params[:id], @child.id )
+    when 2..Float::INFINITY
+      redirect_to user_children_path( current_user )
+    else
+      if current_user.try(:stories).any?
+        redirect_to user_children_path( current_user )
+      else
+        redirect_to user_path(current_user)
+      end
+    end
+
+     # if current_user.children.count > 0
+     #   redirect_to user_child_path(params[:id],@user.children.first.id)
+     # #if is Teller for children show first
+     # elsif is_teller.any?
+     #   @child = is_teller.first.child
+     #   redirect_to user_child_path(params[:id],@child.id)
+     # end
   end
 
   def edit

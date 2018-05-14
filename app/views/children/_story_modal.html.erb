@@ -7,7 +7,7 @@
         <div class="col-md-8 text-center"><b> Upload Image </b></div>
         <br>
 
-        <%= form_for [current_user,@child,Story.new] do |f| %>
+        <%= form_for [current_user,@child,Story.new()] do |f| %>
           <div class="field" id="drop" draggable="true">
             <p> Drop Here </p><br>
             <a> Browse </a>

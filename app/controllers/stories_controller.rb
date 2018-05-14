@@ -11,20 +11,13 @@ class StoriesController < ApplicationController
   end
 
   def create
-    @story = Story.new story_params
+    child = User.find(params[:child_id])
+    @story = child.stories.new(story_params)
     @story.tag = story_params[:tag].split(' ;')
-    @story.child_id = params[:child_id]
-    @story.user_id = params[:user_id]
-    child = Child.find(params[:child_id])
-    if current_user == child.user
-      @story.teller_title = "Creator"
-    else
-      @story.teller_title = child.tellers.where(user_teller_id:current_user.id).first.title
-    end
+    @story.teller_id = current_user.id
 
-    if @story.save
+    if @story.save!
       flash[:notice] = "Story created succesfully"
-      redirect_to '/users/'+params[:user_id]+'/children/'+params[:child_id]
     else
       begin
         raise ArgumentError, @story.errors.messages
@@ -32,8 +25,10 @@ class StoriesController < ApplicationController
         puts "An error of type #{ex.class} happened, message is #{ex.message}"
         flash[:alert] = "ALERT Story not created because #{ex.message}"
       end
-      redirect_to '/users/'+params[:user_id]+'/children/'+params[:child_id]
     end
+
+    redirect_to :back
+
   end
 
   def show

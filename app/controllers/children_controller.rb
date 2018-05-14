@@ -3,15 +3,16 @@ class ChildrenController < ApplicationController
   before_action :authenticate_user!, :except => [:update]
 
   def index
-    @children = Child.all
+    @children = current_user.children
+
   end
 
   def new
-    @child = Child.new child_params
+    @child = User.new child_params
   end
 
   def create
-    @child = Child.new child_params
+    @child = User.new child_params
     @child.user_id = params[:user_id]
     if @child.save
       NotificationMailer.notification_email("m.figand@gmail.com",current_user,@child).deliver
@@ -29,26 +30,27 @@ class ChildrenController < ApplicationController
   end
 
   def show
-     @child = Child.find(params[:id])
+     # @child = Child.find(params[:id])
      @stories = @child.stories
      @age = @child.get_age
-     @user = User.find(params[:user_id])
-     @tellers = []
-     @teller_titles = []
-     @child.stories.map{|story|
-       if @tellers.map(&:id).exclude? story.user.id
-         @tellers << story.user
-         @teller_titles << story.teller_title
-       end
-     }
+     # @user = User.find(params[:user_id])
+     @tellers = @child.tellers
+     @teller_kinship = @child.tellers_kinships
+
+     # @child.stories.map{|story|
+     #   if @tellers.map(&:id).exclude? story.user.id
+     #     @tellers << story.user
+     #     @teller_kinship << story.teller_title
+     #   end
+     # }
   end
 
   def edit
-    @child = Child.find(params[:id])
+    @child = User.find(params[:id])
   end
 
   def update
-    @child = Child.find(params[:id])
+    @child = User.find(params[:id])
 
     if @child.update_attributes child_params
       flash[:notice] = "Child updated succesfully"
@@ -65,13 +67,13 @@ class ChildrenController < ApplicationController
   end
 
   def destroy
-    @child = Child.find(params[:id])
+    @child = User.find(params[:id])
     @child.destroy
     redirect_to root_path
   end
 
   def allStories
-    @child = Child.find(params[:child_id])
+    @child = User.find(params[:child_id])
     @allStories = @child.stories
     @allStories.map { |story|
       if story.image === nil
@@ -86,15 +88,15 @@ class ChildrenController < ApplicationController
    private
 
  def child_params
-  params.require(:child).permit(:name, :birth_day, :user_id)
+  params.require(:child).permit(:name, :birthday, :user_id)
  end
 
  def is_authorized?
-   @child = Child.where(id:params[:id]).first || Child.where(id:params[:child_id]).first
+   @child = current_user.children.select{|child| child.id == params[:id].to_i}.first || current_user.children.select{|child| child.id == params[:child_id].to_i}.first
    @user = current_user
-   @tellers = @child.try(:tellers)
-   if @child == nil || @user == nil || (@child.try(:user) != @user && @tellers.where(user_teller_id:@user.id).empty?)
-     redirect_to user_path(@user.id)
+   # @tellers = @child.try(:tellers)
+   if @child == nil || @user == nil
+     redirect_to user_path(current_user.id)
    end
  end
 

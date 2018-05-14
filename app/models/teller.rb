@@ -1,7 +1,4 @@
-class Teller < ActiveRecord::Base
-
-  # belongs_to :user
+class Teller < User
   belongs_to :child
-  has_many :stories
-
+  # has_many :stories
 end

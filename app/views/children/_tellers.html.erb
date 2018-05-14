@@ -2,6 +2,8 @@
 <section id="tellers" class="section orange">
   <div class="container">
     <h4>Tellers</h4>
+    <div class="alert" id="alertMessage" hidden>
+    </div>
     <p style="text-align: center;">
        This are the people who help to tell the stories of your Time Line.
     </p>
@@ -18,7 +20,7 @@
             <img class="team-thumb img-circle" src=<%= teller.avatar.url %> alt="" />
             <h3><%= teller.name %></h3>
             <p>
-              <%= @teller_titles[index] %>
+              <%= @teller_kinship[index] %>
             </p>
           </div>
         </div>

@@ -5,23 +5,23 @@
 
         <div class="closeBtn"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button></div>
         <div class="col-md-8 text-center"><b> Add Teller </b></div>
+
         <br>
 
         <%= form_for(add_teller_path,:url => add_teller_path, remote: true) do |f| %>
           <div class="field">
-            <%= f.label :title %><br />
-            <%= text_field_tag :title, params[:email], placeholder: "Abuelo", class: "input-sm form-control" %>
+            <%= f.label :kinship %><br />
+            <%= text_field_tag :kinship, params[:email], placeholder: "Abuelo", class: "input-sm form-control", :required => true %>
           </div>
           <div class="field">
             <%= f.label :email %><br />
-            <%= text_field_tag :email, params[:email], placeholder: "name@gmail.com", class: "input-sm form-control" %>
+            <%= text_field_tag :email, params[:email], placeholder: "name@gmail.com", class: "input-sm form-control", :required => true%>
           </div>
           <br>
           <%= hidden_field_tag :child_id, params[:child_id], value: @child.id %>
 
-            <%= f.submit "Add", class:'btn btn-sm btn-info' %>
+          <%= f.submit "Add", class:'btn btn-sm btn-info', id:'addTellerInput' %>
         <% end %>
-
 
       </div>
     </div>

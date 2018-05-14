@@ -11,18 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171019145854) do
+ActiveRecord::Schema.define(version: 20180511160146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "children", force: :cascade do |t|
-    t.string  "name"
-    t.date    "birth_day"
-    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
-
-  add_index "children", ["user_id"], name: "index_children_on_user_id", using: :btree
 
   create_table "contexts", force: :cascade do |t|
     t.text     "aboutDescription"
@@ -30,7 +27,7 @@ ActiveRecord::Schema.define(version: 20171019145854) do
     t.string   "aboutVideo"
     t.string   "coverPicture"
     t.string   "parallaxPicture"
-    t.integer  "user_id"
+    t.string   "user_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.string   "coverPicture_file_name"
@@ -49,6 +46,24 @@ ActiveRecord::Schema.define(version: 20171019145854) do
 
   add_index "contexts", ["user_id"], name: "index_contexts_on_user_id", using: :btree
 
+  create_table "parents", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.string   "relationship"
+    t.string   "kinship"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id", using: :btree
+  add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
+  add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
+
   create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -65,30 +80,22 @@ ActiveRecord::Schema.define(version: 20171019145854) do
     t.json     "tag"
     t.date     "date"
     t.string   "image"
-    t.string   "teller_title"
     t.integer  "teller_id"
-    t.integer  "child_id"
     t.integer  "user_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
   end
 
-  add_index "stories", ["child_id"], name: "index_stories_on_child_id", using: :btree
-  add_index "stories", ["user_id"], name: "index_stories_on_user_id", using: :btree
+  add_index "stories", ["user_id", "teller_id"], name: "index_stories_on_user_id_and_teller_id", using: :btree
 
   create_table "tellers", force: :cascade do |t|
-    t.integer "user_teller_id"
-    t.string  "title"
-    t.integer "user_id"
-    t.integer "child_id"
-    t.integer "story_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
-
-  add_index "tellers", ["child_id"], name: "index_tellers_on_child_id", using: :btree
-  add_index "tellers", ["story_id"], name: "index_tellers_on_story_id", using: :btree
-  add_index "tellers", ["user_id"], name: "index_tellers_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -104,6 +111,12 @@ ActiveRecord::Schema.define(version: 20171019145854) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "name"
+    t.string   "type"
+    t.string   "kinship"
+    t.date     "birthday"
+    t.integer  "parent_id"
+    t.integer  "teller_id"
+    t.integer  "user_id"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
@@ -120,8 +133,4 @@ ActiveRecord::Schema.define(version: 20171019145854) do
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
-  add_foreign_key "children", "users"
-  add_foreign_key "tellers", "children"
-  add_foreign_key "tellers", "stories"
-  add_foreign_key "tellers", "users"
 end
