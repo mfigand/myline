@@ -42,6 +42,9 @@ jQuery(document).ready(function($) {
     $('#alertMessage').hide();
     $('#alertMessage').empty();
     $('#addTeller-modal').modal('show');
+    $('.modal-backdrop').on('click', function (event) {
+      this.remove();
+    });
 
     $('#addTellerInput').unbind().on("click",function(e){
       e.preventDefault();
